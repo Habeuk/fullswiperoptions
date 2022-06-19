@@ -1,0 +1,29 @@
+<div {{wrappers_attributes}}>
+	<div {{attributes}}>
+		{% if title %}
+		<h3>
+			{{ title }}
+		</h3>
+		{% endif %}
+		<div {{ swipper_attributes }}>
+			<div class="swiper-wrapper">
+				{% for row in rows %}
+				<div {{row.attributes}}>
+					{{ row|without('attributes') }}
+				</div>
+				{% endfor %}
+			</div>
+			<!-- If we need pagination -->
+			<div class="swiper-pagination"></div>
+			<!-- If we need navigation buttons -->
+			{% if swiper_options.navigation %}
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+			{% endif %}
+			<!-- If we need scrollbar -->
+			{% if swiper_options.scroll %}
+				<div class="swiper-scrollbar"></div>
+			{% endif %}
+		</div>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+<?php
+
+/**
+ *
+ * @file
+ * Primary module hooks for fullswiperoptions module.
+ *
+ * @DCG
+ * This file is no longer required in Drupal 8.
+ * @see https://www.drupal.org/node/2217931
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function fullswiperoptions_theme() {
+  return [
+    'fullswiperoptions_swipper' => [
+      'preprocess functions' => [
+        'template_preprocess_fullswiperoptions_swipper'
+      ],
+      'file' => 'fullswiperoptions.theme.inc'
+    ]
+  ];
+}
