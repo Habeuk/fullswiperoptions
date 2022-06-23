@@ -56,6 +56,10 @@ class Fullswiperoptions extends StylePluginBase {
   
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
+    $form['layoutgenentitystyles_view'] = [
+      '#type' => 'hidden',
+      '#value' => 'fullswiperoptions/fullswiperoptions'
+    ];
     $form['theme'] = [
       '#type' => 'select',
       '#title' => $this->t(' Model '),
@@ -115,9 +119,11 @@ class Fullswiperoptions extends StylePluginBase {
     parent::submitOptionsForm($form, $form_state);
     // On recupere la valeur de la librairie et on ajoute:
     $library = $this->options['layoutgenentitystyles_view'];
+    // dump($library);
     if (empty($library)) {
       $library = 'fullswiperoptions/fullswiperoptions';
     }
+    
     $this->LayoutgenentitystylesServices->addStyleFromView($library, $this->view->id(), $this->view->current_display);
   }
   
