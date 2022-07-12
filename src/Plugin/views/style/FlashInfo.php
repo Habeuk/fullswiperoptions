@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\flash_info\Plugin\views\style;
+namespace Drupal\fullswiperoptions\Plugin\views\style;
 
 use Drupal\core\form\FormStateInterface;
 use Drupal\views\Plugin\views\style\StylePluginBase;
@@ -13,7 +13,7 @@ use Drupal\views\Plugin\views\style\StylePluginBase;
  *  id = "flashinfo_slider",
  *  title = @Translation(" Flash Info Swiper "),
  *  help = @Translation(" Add some slider controls and dinamize slider titles "),
- *  theme = "flash_info_view",
+ *  theme = "fullswiperoptions_flash_info",
  *  dispplay_types = { "normal" }
  * )
  * 
