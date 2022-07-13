@@ -20,6 +20,12 @@ function fullswiperoptions_theme() {
         'template_preprocess_fullswiperoptions_swipper'
       ],
       'file' => 'fullswiperoptions.theme.inc'
+    ],
+    'fullswiperoptions_flashinfo_slider' => [
+      'preprocess functions' => [
+        'template_preprocess_fullswiperoptions_flashinfo_slider'
+      ],
+      'file' => 'fullswiperoptions.theme.inc'
     ]
   ];
 }

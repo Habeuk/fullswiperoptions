@@ -111,7 +111,7 @@ class Fullswiperoptions extends StylePluginBase {
     $form['swiper_options']['navigation']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('display navigation'),
-      '#default_value' => $this->options['swiper_options']['navigation']['status']
+      '#default_value' => isset($this->options['swiper_options']['navigation']['status']) ? $this->options['swiper_options']['navigation']['status'] : false
     ];
   }
   

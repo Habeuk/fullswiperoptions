@@ -1,0 +1,28 @@
+
+
+<div {{ wrappers_attributes.addClass('slide-control') }}>
+        <div class="container-fluid slc-content">
+            <div>
+                <button class="sc-btn play-pause">
+                    <i class="wbu-pause"></i>
+                    <i class="wbu-play"></i>
+                </button>
+            </div>
+           <div class="button-prev">
+                <button class="sc-btn"><i class="wbu-angle-left"></i></button>
+           </div>
+            <div class="button-next">
+                <button class="sc-btn button-next"><i class="wbu-angle_right"></i></button>
+            </div>
+            <div class="swiper-sc">
+                <div class="swiper-wrapper">
+                	{% for row in rows %}
+				<div {{row.attributes.addClass(['sc-title','swiper-slide'])}} cdfr="fmp">
+					{{ row|without('attributes') }}
+				</div>
+				{% endfor %}
+                </div>
+            </div>
+        </div>
+</div>
+
