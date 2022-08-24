@@ -17,10 +17,10 @@
             <div class="swiper-sc">
                 <div class="swiper-wrapper">
                 	{% for row in rows %}
-				<div {{row.attributes.addClass(['sc-title','swiper-slide'])}} cdfr="fmp">
-					{{ row|without('attributes') }}
-				</div>
-				{% endfor %}
+                    <div {{row.attributes.addClass(['sc-title','swiper-slide'])}} cdfr="fmp">
+                        {{ row|without('attributes') }}
+                    </div>
+				    {% endfor %}
                 </div>
             </div>
         </div>

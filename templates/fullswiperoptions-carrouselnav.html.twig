@@ -1,29 +1,91 @@
-<div {{wrappers_attributes}}>
-	<div {{attributes}}>
-		{% if title %}
-		<h3>
-			{{ title }}
-		</h3>
-		{% endif %}
-		<div {{ swipper_attributes }}>
-			<div class="swiper-wrapper">
-				{% for row in rows %}
-				<div {{row.attributes}}>
-					{{ row|without('attributes') }}
-				</div>
-				{% endfor %}
-			</div>
-			<!-- If we need pagination -->
-			<div class="swiper-pagination carousel-nav"></div>
-			<!-- If we need navigation buttons -->
-			{% if swiper_options.navigation %}
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-next"></div>
-			{% endif %}
-			<!-- If we need scrollbar -->
-			{% if swiper_options.scroll %}
-				<div class="swiper-scrollbar"></div>
-			{% endif %}
+{#
+<div {{ wrappers_attributes.addClass(['swiper','carousel-hero']) }}>
+	<div class="swiper-wrapper">
+		{% for row in rows %}
+		<div {{row.attributes.addClass('swiper-slide')}}>
+			{{ row|without('attributes') }}
 		</div>
+		{% endfor %}
 	</div>
+	<!-- If we need pagination -->
+	<div class="swiper-pagination carousel-nav"></div>
+</div>
+#}
+<div class="swiper carousel-hero">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <div class="mitor-card mitor-card--right mitor-card--reverse row">
+                <div class="mitor-card__img col-lg-6">
+                    <div class="img-bloc">
+                        <a href="#">
+                            <img src="https://slidesigma.com/themes/html/mitor/assets/img/homepage-3/banner.png"
+                                 alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="mitor-card__body col-lg-6  ">
+                    <h3 class="mc-title">
+                        We Ensure the Success of Your Products and Business</h3>
+                    <div class="mc-description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut
+                        labore
+                        et dolore magna aliqua. Quis ipsum suspe ndisse ultrices gravida. Risus commodo viverra
+                        maecenas
+                    </div>
+                    <a href="#" class="mitor-btn  ">Contact us</a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="mitor-card mitor-card--right mitor-card--reverse row">
+                <div class="mitor-card__img col-lg-6">
+                    <div class="img-bloc">
+                        <a href="#">
+                            <img src="http://slidesigma.com/themes/html/mitor/assets/img/homepage-1/banner.png"
+                                 alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="mitor-card__body col-lg-6  ">
+                    <h3 class="mc-title">
+                        We Ensure the Success of Your Products and Business</h3>
+                    <div class="mc-description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut
+                        labore
+                        et dolore magna aliqua. Quis ipsum suspe ndisse ultrices gravida. Risus commodo viverra
+                        maecenas
+                    </div>
+                    <a href="#" class="mitor-btn  ">Contact us</a>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide">
+            <div class="mitor-card mitor-card--right mitor-card--reverse row">
+                <div class="mitor-card__img col-lg-6">
+                    <div class="img-bloc">
+                        <a href="#">
+                            <img src="https://slidesigma.com/themes/html/mitor/assets/img/homepage-3/banner.png"
+                                 alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="mitor-card__body col-lg-6  ">
+                    <h3 class="mc-title">
+                        We Ensure the Success of Your Products and Business</h3>
+                    <div class="mc-description">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                        incididunt ut
+                        labore
+                        et dolore magna aliqua. Quis ipsum suspe ndisse ultrices gravida. Risus commodo viverra
+                        maecenas
+                    </div>
+                    <a href="#" class="mitor-btn  ">Contact us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination carousel-nav"></div>
 </div>
