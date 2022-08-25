@@ -1,24 +1,13 @@
-<div {{ wrappers_attributes.addClass(['swiper','carousel-hero']) }}>
-	<div {{attributes}}>
-		<div {{ swipper_attributes }}>
-			<div class="swiper-wrapper">
-				{% for row in rows %}
-				<div {{row.attributes}}>
-					{{ row|without('attributes') }}
-				</div>
-				{% endfor %}
+<div {{attributes}}>
+	<div {{ swipper_attributes.addClass(['swiper','carousel-hero']) }}>
+		<div class="swiper-wrapper">
+			{% for row in rows %}
+			<div {{row.attributes}}>
+				{{ row|without('attributes') }}
 			</div>
-			<!-- If we need pagination -->
-			<div class="swiper-pagination"></div>
-			<!-- If we need navigation buttons -->
-			{% if swiper_options.navigation %}
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-next"></div>
-			{% endif %}
-			<!-- If we need scrollbar -->
-			{% if swiper_options.scroll %}
-				<div class="swiper-scrollbar"></div>
-			{% endif %}
+			{% endfor %}
 		</div>
+		<!-- If we need pagination -->
+		<div class="swiper-pagination carousel-nav"></div>
 	</div>
 </div>
