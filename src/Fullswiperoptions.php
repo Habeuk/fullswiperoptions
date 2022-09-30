@@ -62,6 +62,13 @@ class Fullswiperoptions {
       case 'spaceBetween':
         $value = (int) $value;
         break;
+      case 'module':
+        foreach ($value as $key => $v) {
+          if($v){
+            $value[] = $key;
+          }
+          unset($value[$key]);
+        }
       case 'navigation':
         if (isset($value['status'])) {
           if (!$value['status'])
