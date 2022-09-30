@@ -87,7 +87,7 @@ class Fullswiperoptions extends StylePluginBase {
     ];
     // for module  : 
     $form['swiper_options']['module'] = [
-      '#type' => 'checkbox',
+      '#type' => 'checkboxes',
       '#title' => $this->t(' Module '),
       '#options' => [
         'Controller' => 'controller',
