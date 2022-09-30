@@ -85,17 +85,17 @@ class Fullswiperoptions extends StylePluginBase {
       ],
       '#default_value' => $this->options['swiper_options']['direction']
     ];
-    // for more options : 
-    $form['swiper_options']['options'] = [
-      '#type' => 'select',
-      '#title' => $this->t(' Options '),
+    // for module  : 
+    $form['swiper_options']['module'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t(' Module '),
       '#options' => [
-        'controller' => 'controller',
-        'navigation' => 'navigation',
-        'pagination' => 'pagination',
-        'thumbs' => 'thumbs',
+        'Controller' => 'controller',
+        'Navigation' => 'navigation',
+        'Pagination' => 'pagination',
+        'Thumbs' => 'thumbs',
       ],
-      '#default_value' => $this->options['swiper_options']['options']
+      '#default_value' => $this->options['swiper_options']['module']
     ];
     $form['swiper_options']['speed'] = [
       '#type' => 'number',
