@@ -13,7 +13,7 @@ use Drupal\core\form\FormStateInterface;
  *  title = @Translation(" Carrousel Nav "),
  *  help = @Translation(" Add some slider controls and dinamize slider titles "),
  *  theme = "fullswiperoptions_carrouselnav",
- *  dispplay_types = { "normal" }
+ *  display_types = { "normal" }
  * )
  *
  */
@@ -30,6 +30,16 @@ class CarrouselNav extends Fullswiperoptions {
     $form['layoutgenentitystyles_view'] = [
       '#type' => 'hidden',
       '#value' => 'fullswiperoptions/carrouselnav'
+    ];
+    $form['theme'] = [
+      '#type' => 'select',
+      '#title' => $this->t(' Model '),
+      '#options' => [
+        'carrousel--left' => 'nav-left',
+        'carrousel--bottom--primary' => 'nav-bottom-primary',
+        'carrousel--bottom--image' => 'nav-bottom-image',
+        'carrousel--right' => 'nav-right'
+      ]
     ];
   }
   
