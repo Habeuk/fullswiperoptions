@@ -35,10 +35,8 @@ class CarrouselNav extends Fullswiperoptions {
       '#type' => 'select',
       '#title' => $this->t(' Model '),
       '#options' => [
-        'carrousel--left' => 'nav-left',
-        'carrousel--bottom--primary' => 'nav-bottom-primary',
-        'carrousel--bottom--image' => 'nav-bottom-image',
-        'carrousel--right' => 'nav-right'
+        'carrousel--left' => 'nav-simple',
+        'carrousel--bottom--primary' => 'nav-black'
       ]
     ];
   }

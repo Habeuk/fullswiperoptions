@@ -97,6 +97,49 @@ class Fullswiperoptions extends StylePluginBase {
       ],
       '#default_value' => $this->options['swiper_options']['module']
     ];
+    // form for loopedSlides : 
+    $form['swiper_options']['loopedSlides'] = [
+      '#type' => 'number',
+      '#title' => $this->t('loopedSlides'),
+      '#default_value' => $this->options['swiper_options']['loopedSlides']
+    ];
+    // form for slidesPerView : 
+    $form['swiper_options']['slidesPerView'] = [
+      '#type' => 'number',
+      '#title' => $this->t('slidesPerView'),
+      '#default_value' => $this->options['swiper_options']['slidesPerView']
+    ];
+    // form for breakpoints : 
+    $form['swiper_options']['breakpoints_status'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use breakpoints'),
+      '#default_value' => $this->options['swiper_options']['breakpoints_status']
+    ];
+    $bpts = [ 576, 769, 992, 1201, 1601];
+    foreach ($bpts as $bp) {
+      $form['swiper_options']['breakpoints'][$bp] = [
+        '#type' => 'details',
+        '#states' => [
+          'visible' => [
+            ':input[name="style_options[swiper_options][breakpoints_status]"]' => [
+              'checked' => TRUE
+            ]
+          ]
+        ],
+        '#title' => $this->t('breakpoint '.$bp),
+      ];
+      $form['swiper_options']['breakpoints'][$bp]['slidesPerView'] = [
+        '#type' => 'number',
+        '#title' => $this->t('slidesPerView '),
+        '#default_value' => $this->options['swiper_options']['breakpoints'][$bp]['slidesPerView']
+      ];
+      $form['swiper_options']['breakpoints'][$bp]['spaceBetween'] = [
+        '#type' => 'number',
+        '#title' => $this->t('spaceBetween '),
+        '#default_value' => $this->options['swiper_options']['breakpoints'][$bp]['spaceBetween']
+      ];
+    }
+    // form for the speed
     $form['swiper_options']['speed'] = [
       '#type' => 'number',
       '#title' => $this->t('speed'),

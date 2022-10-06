@@ -62,6 +62,14 @@ class Fullswiperoptions {
       case 'spaceBetween':
         $value = (int) $value;
         break;
+      case 'breakpoints':
+        foreach ($value as $key => $v) {
+          //$v['spaceBetween'] = (int) $v['spaceBetween'];
+          $value[(int)$key];
+          //$value[$key]['spaceBetween'] = (int) $value[$key]['spaceBetween'];
+          unset($value[$key]);
+        }
+        dump($value);
       case 'module':
         foreach ($value as $key => $v) {
           if($v){
@@ -89,6 +97,7 @@ class Fullswiperoptions {
     $handler = $vars['view']->style_plugin;
     $settings = $handler->options;
     $swiper_options = Fullswiperoptions::formatOptions($settings['swiper_options']);
+    //dump($swiper_options);
     $vars['swiper_options'] = $swiper_options;
     $id = Fullswiperoptions::getUniqueId($view);
     $wrappers_attributes->setAttribute('id', $id);
@@ -102,6 +111,11 @@ class Fullswiperoptions {
       $vars['rows'][$num]['attributes'] = new Attribute($vars['rows'][$num]['attributes']);
     }
     // }
+    // disable breakpoints options : 
+    if (!$swiper_options['breakpoints_status'])
+    {
+      unset($swiper_options['breakpoints']);
+    }
     $vars['swipper_attributes'] = new Attribute([
       'class' => [
         'swiper',
