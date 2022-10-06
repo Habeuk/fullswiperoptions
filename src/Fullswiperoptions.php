@@ -64,12 +64,10 @@ class Fullswiperoptions {
         break;
       case 'breakpoints':
         foreach ($value as $key => $v) {
-          //$v['spaceBetween'] = (int) $v['spaceBetween'];
-          $value[(int)$key];
-          //$value[$key]['spaceBetween'] = (int) $value[$key]['spaceBetween'];
-          unset($value[$key]);
+          $v['spaceBetween'] = (int) $v['spaceBetween'];
+          $value[$key] = $v;
         }
-        dump($value);
+        break;
       case 'module':
         foreach ($value as $key => $v) {
           if($v){
