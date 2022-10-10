@@ -91,6 +91,13 @@ class Fullswiperoptions {
   
   public static function FullswiperoptionsTheme(&$vars) {
     $wrappers_attributes = new Attribute();
+    $wrappers_paginations = new Attribute([
+      'class'=>[
+        'swiper-pagination',
+        'carousel-nav'
+        ]
+      ]
+    );
     $view = $vars['view'];
     $handler = $vars['view']->style_plugin;
     $settings = $handler->options;
@@ -110,6 +117,7 @@ class Fullswiperoptions {
     }
     // }
     // disable breakpoints options : 
+    if(isset($swiper_options['breakpoints_status']))
     if (!$swiper_options['breakpoints_status'])
     {
       unset($swiper_options['breakpoints']);

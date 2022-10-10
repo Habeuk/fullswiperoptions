@@ -60,6 +60,7 @@ class Fullswiperoptions extends StylePluginBase {
       '#type' => 'hidden',
       '#value' => 'fullswiperoptions/fullswiperoptions'
     ];
+    // this config add some options to the container swiper
     $form['theme'] = [
       '#type' => 'select',
       '#title' => $this->t(' Model '),

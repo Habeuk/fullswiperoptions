@@ -1,5 +1,5 @@
 <div {{attributes}}>
-	<div {{ swipper_attributes.addClass(['swiper','carousel-hero']) }}>
+	<div {{ swipper_attributes.addClass('swiper') }}>
 		<div class="swiper-wrapper">
 			{% for row in rows %}
 			<div {{row.attributes}}>
@@ -8,6 +8,6 @@
 			{% endfor %}
 		</div>
 		<!-- If we need pagination -->
-		<div {#custom settings to define#} class="swiper-pagination carousel-nav"></div>
+		<div class="swiper-pagination carousel-nav"></div>
 	</div>
 </div>
