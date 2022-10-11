@@ -91,13 +91,6 @@ class Fullswiperoptions {
   
   public static function FullswiperoptionsTheme(&$vars) {
     $wrappers_attributes = new Attribute();
-    $wrappers_paginations = new Attribute([
-      'class'=>[
-        'swiper-pagination',
-        'carousel-nav'
-        ]
-      ]
-    );
     $view = $vars['view'];
     $handler = $vars['view']->style_plugin;
     $settings = $handler->options;
@@ -130,6 +123,28 @@ class Fullswiperoptions {
       ],
       'data-swiper' => Json::encode($swiper_options)
     ]);
+    $class_pagination = '';
+    switch ($settings['theme']) {
+      case 'carousel-testy':
+        $class_pagination = 'carousel-nav--black d-flex justify-content-center';
+        break;
+      case 'carousel-nav-testy':
+        $class_pagination = 'carousel-nav--carree carousel-nav--black d-flex justify-content-center';
+        break;
+      case 'carousel-testy-nav-rond':
+        $class_pagination = 'carousel-nav--black d-flex justify-content-center';
+        break;
+      default:
+        break;
+    }
+    $vars['swipper_attributes_paginations'] = new Attribute([
+      'class'=>[
+        'swiper-pagination',
+        'carousel-nav',
+        $class_pagination
+        ]
+      ]
+    );
   }
   
 }

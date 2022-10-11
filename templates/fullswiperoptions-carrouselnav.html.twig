@@ -7,7 +7,13 @@
 			</div>
 			{% endfor %}
 		</div>
+		{#
+			carousel-hero -- carousel-nav
+			carousel-testy -- carousel-nav carousel-nav--black d-flex justify-content-center
+			carousel-nav-testy -- carousel-nav carousel-nav--carree carousel-nav--black d-flex justify-content-center
+			carousel-testy-nav-rond -- carousel-nav carousel-nav--black d-flex justify-content-center
+		#}
 		<!-- If we need pagination -->
-		<div class="swiper-pagination carousel-nav"></div>
+		<div {{ swipper_attributes_paginations.addClass() }} {#class="swiper-pagination carousel-nav"#}></div>
 	</div>
 </div>
