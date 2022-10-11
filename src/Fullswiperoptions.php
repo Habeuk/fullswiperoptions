@@ -128,6 +128,9 @@ class Fullswiperoptions {
       case 'carousel-testy':
         $class_pagination = 'carousel-nav--black d-flex justify-content-center';
         break;
+      case 'project-tabs':
+        $class_pagination = 'carousel-nav--carree carousel-nav--black d-flex justify-content-center';
+        break;
       case 'carousel-nav-testy':
         $class_pagination = 'carousel-nav--carree carousel-nav--black d-flex justify-content-center';
         break;

@@ -36,6 +36,7 @@ class CarrouselNav extends Fullswiperoptions {
       '#title' => $this->t(' Container Model '),
       '#options' => [
         'carousel-hero' => 'hero(round-left-white)',
+        'project-tabs' => 'project-tabs()',
         'carousel-testy' => 'testy(round-center-black)',
         'carousel-nav-testy' => 'nav-testy(square-center-black)',
         'carousel-testy-nav-rond' => 'testy-nav-rond(square-center-black)'

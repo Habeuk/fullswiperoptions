@@ -1,0 +1,20 @@
+<div {{attributes}}>
+	<div {{ swipper_attributes.addClass('swiper') }}>
+		<div class="swiper-wrapper">
+			{% for row in rows %}
+			<div {{row.attributes}}>
+				{{ row|without('attributes') }}
+			</div>
+			{% endfor %}
+		</div>
+		{#
+			carousel-hero -- carousel-nav
+			carousel-testy -- carousel-nav carousel-nav--black d-flex justify-content-center
+			carousel-nav-testy -- carousel-nav carousel-nav--carree carousel-nav--black d-flex justify-content-center
+			carousel-testy-nav-rond -- carousel-nav carousel-nav--black d-flex justify-content-center
+			projects-tabs -- carousel-nav carousel-nav--carree carousel-nav--black d-flex justify-content-center
+		#}
+		<!-- If we need pagination -->
+		<div {{ swipper_attributes_paginations.addClass() }} {#class="swiper-pagination carousel-nav"#}></div>
+	</div>
+</div>
