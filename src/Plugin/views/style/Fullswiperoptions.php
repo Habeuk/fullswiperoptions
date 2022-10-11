@@ -98,6 +98,22 @@ class Fullswiperoptions extends StylePluginBase {
       ],
       '#default_value' => $this->options['swiper_options']['module']
     ];
+    // form for slideClass : 
+    $form['swiper_options']['slideClass'] = [
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#title' => $this->t('slideClass'),
+      '#default_value' => $this->options['swiper_options']['slideClass']
+    ];
+    // form for slideActiveClass : 
+    $form['swiper_options']['slideActiveClass'] = [
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#title' => $this->t('slideActiveClass'),
+      '#default_value' => $this->options['swiper_options']['slideActiveClass']
+    ];
     // form for loopedSlides : 
     $form['swiper_options']['loopedSlides'] = [
       '#type' => 'number',

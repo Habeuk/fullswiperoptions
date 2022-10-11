@@ -43,17 +43,6 @@ class CarrouselNav extends Fullswiperoptions {
       ],
       '#default_value' => $this->options['theme']
     ];
-    /*$form['theme'] = [
-      '#type' => 'select',
-      '#title' => $this->t(' Bullets Model '),
-      '#options' => [
-        'carousel-nav--black d-flex justify-content-center' => 'round-center-black',
-        'carousel-nav--black' => 'round-left-black',
-        'carousel-nav--carree carousel-nav--black d-flex justify-content-center' => 'square-center-black',
-        'carousel-nav--carree carousel-nav--black' => 'square-left-black',
-        'carrousel--bottom--primary' => 'nav-black'
-      ]
-    ];*/
   }
   /**
    * config library and some params
