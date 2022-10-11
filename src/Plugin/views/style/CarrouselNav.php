@@ -39,7 +39,8 @@ class CarrouselNav extends Fullswiperoptions {
         'carousel-testy' => 'testy(round-center-black)',
         'carousel-nav-testy' => 'nav-testy(square-center-black)',
         'carousel-testy-nav-rond' => 'testy-nav-rond(square-center-black)'
-      ]
+      ],
+      '#default_value' => $this->options['theme']
     ];
     /*$form['theme'] = [
       '#type' => 'select',
