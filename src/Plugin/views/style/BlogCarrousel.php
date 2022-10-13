@@ -9,15 +9,15 @@ use Drupal\core\form\FormStateInterface;
  * the slider is linked to a titles of some content
  *
  * @ViewsStyle(
- *  id = "carrouselnav",
- *  title = @Translation(" Carrousel Nav "),
- *  help = @Translation(" Add some slider controls and dinamize slider titles "),
- *  theme = "fullswiperoptions_carrouselnav",
+ *  id = "blogcarrousel",
+ *  title = @Translation(" Blog Carrousel "),
+ *  help = @Translation(" Add some Slider type for displaying slides "),
+ *  theme = "fullswiperoptions_blogcarrousel",
  *  display_types = { "normal" }
  * )
  *
  */
-class CarrouselNav extends Fullswiperoptions {
+class BlogCarrousel extends Fullswiperoptions {
   
   /**
    * build form options
@@ -29,7 +29,7 @@ class CarrouselNav extends Fullswiperoptions {
     parent::buildOptionsForm($form, $form_state);
     $form['layoutgenentitystyles_view'] = [
       '#type' => 'hidden',
-      '#value' => 'fullswiperoptions/carrouselnav'
+      '#value' => 'fullswiperoptions/blogcarrousel'
     ];
     $form['theme'] = [
       '#type' => 'select',
@@ -38,7 +38,6 @@ class CarrouselNav extends Fullswiperoptions {
         'carousel-hero' => 'hero(round-left-white)',
         'project-tabs' => 'project-tabs(two type images)',
         'blog-carousel' => 'blog-carousel(no-bullets)',
-        'carousel-testy-nav' => 'testy-nav(square-center-bullets)',
         'carousel-testy' => 'testy(round-center-black)',
         'carousel-nav-testy' => 'nav-testy(square-center-black)',
         'carousel-testy-nav-rond' => 'testy-nav-rond(square-center-black)'
@@ -57,7 +56,7 @@ class CarrouselNav extends Fullswiperoptions {
     $library = $this->options['layoutgenentitystyles_view'];
     // dump($library);
     if (empty($library)) {
-      $library = 'fullswiperoptions/carrouselnav';
+      $library = 'fullswiperoptions/blogcarrousel';
     }
     
     $this->LayoutgenentitystylesServices->addStyleFromView($library, $this->view->id(), $this->view->current_display);

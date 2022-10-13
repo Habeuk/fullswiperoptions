@@ -12,3 +12,7 @@ function template_preprocess_fullswiperoptions_flashinfo_slider(&$vars) {
 function template_preprocess_fullswiperoptions_carrouselnav(&$vars) {
   Fullswiperoptions::FullswiperoptionsTheme($vars);
 }
+
+function template_preprocess_fullswiperoptions_blogcarrousel(&$vars) {
+  Fullswiperoptions::FullswiperoptionsTheme($vars);
+}

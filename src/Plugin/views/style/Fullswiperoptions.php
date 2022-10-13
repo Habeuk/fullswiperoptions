@@ -98,21 +98,39 @@ class Fullswiperoptions extends StylePluginBase {
       ],
       '#default_value' => $this->options['swiper_options']['module']
     ];
-    // form for slideClass : 
+    // using supplements class : 
+    $form['swiper_options']['supplement_class_status'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use Supplement Class'),
+      '#default_value' => $this->options['swiper_options']['supplement_class_status']
+    ];
     $form['swiper_options']['slideClass'] = [
       '#type' => 'textfield',
       '#size' => 60,
       '#maxlength' => 128,
+      '#default_value' => $this->options['swiper_options']['slideClass'],
+      '#states' => [
+        'visible' => [
+          ':input[name="style_options[swiper_options][supplement_class_status]"]' => [
+            'checked' => TRUE
+          ]
+        ]
+      ],
       '#title' => $this->t('slideClass'),
-      '#default_value' => $this->options['swiper_options']['slideClass']
     ];
-    // form for slideActiveClass : 
     $form['swiper_options']['slideActiveClass'] = [
       '#type' => 'textfield',
       '#size' => 60,
       '#maxlength' => 128,
+      '#default_value' => $this->options['swiper_options']['slideActiveClass'],
+      '#states' => [
+        'visible' => [
+          ':input[name="style_options[swiper_options][supplement_class_status]"]' => [
+            'checked' => TRUE
+          ]
+        ]
+      ],
       '#title' => $this->t('slideActiveClass'),
-      '#default_value' => $this->options['swiper_options']['slideActiveClass']
     ];
     // form for loopedSlides : 
     $form['swiper_options']['loopedSlides'] = [
