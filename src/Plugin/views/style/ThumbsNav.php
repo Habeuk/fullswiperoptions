@@ -39,6 +39,15 @@ class ThumbsNav extends Fullswiperoptions {
       ],
       '#default_value' => $this->options['theme']
     ];
+    // adding swiper or not : 
+    $form['swiper2'] = [
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#default_value' => $this->options['swiper2'],
+      '#title' => $this->t('Définition de Swiper 2'),
+      '#description' => $this->t('La plupart des modèles de sliders utilisatnt Swiper utilise la classe swiper pour l\'initialisation'),
+    ];
     $this->swiper_options2($form);
   }
 
@@ -49,7 +58,7 @@ class ThumbsNav extends Fullswiperoptions {
     // fields for the swiper settings
     $form['swiper_options2'] = [
       '#type' => 'details',
-      '#title' => $this->t('Swiper settings')
+      '#title' => $this->t('Swiper settings 2')
     ];
     // field for settings direction
     $form['swiper_options2']['direction'] = [
@@ -166,6 +175,12 @@ class ThumbsNav extends Fullswiperoptions {
       '#type' => 'checkbox',
       '#title' => $this->t('Loop'),
       '#default_value' => $this->options['swiper_options2']['loop']
+    ];
+    // filed for slideToClickedSlide 
+    $form['swiper_options2']['slideToClickedSlide'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('slideToClickedSlide'),
+      '#default_value' => $this->options['swiper_options2']['slideToClickedSlide']
     ];
     // field for grabCursor
     $form['swiper_options2']['grabCursor'] = [

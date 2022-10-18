@@ -69,6 +69,11 @@ class Fullswiperoptions {
           $value = (int) $value;
         }
         break;
+      case 'slidesPerView':
+        if(empty($value)) {
+          unset($value['slidesPerView']);
+        }
+        break;
       case 'breakpoints':
         foreach ($value as $key => $v) {
           $v['spaceBetween'] = (int) $v['spaceBetween'];

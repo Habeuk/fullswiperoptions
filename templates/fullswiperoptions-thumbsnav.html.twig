@@ -9,17 +9,18 @@
 			{% endfor %}
 		</div>
 		<!-- sub-slide -->
-	</div>
-	{#<div class="thumbnail-slide">
-		<div class="swiper-pagination carousel-nav  "></div>
-		<div thumbsSlider="" {{ swipper_attributes2.addClass('thumbnail-swiper') }}>
-			<div class="swiper-wrapper">
-				{% for row in rows2 %}
-				<div {{row.attributes}}>
-					{{ row|without('attributes') }}
+		<div class="thumbnail-slide">
+			<div class="swiper-pagination carousel-nav"></div>
+			<div thumbsSlider="" {{ swipper_attributes2.addClass('thumbnail-swiper') }}>
+				<div class="swiper-wrapper">
+					{% for row in rows2 %}
+					<div {{row.attributes}}>
+						{{ row|without('attributes') }}
+					</div>
+					{% endfor %}
 				</div>
-				{% endfor %}
 			</div>
 		</div>
-	</div>#}
+	</div>
+	{#{ dump() }#}
 </div>

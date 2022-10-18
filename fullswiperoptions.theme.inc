@@ -30,16 +30,23 @@ function template_preprocess_fullswiperoptions_thumbsnav(&$vars) {
   $vars['rows2'] = [];
   foreach ($vars['rows'] as $key => $value) {
     if(isset($value['#block_content']))
-      $vars['rows2'][] = $view_builder->view($value['#block_content'], 'thumbsnail_slide_image');
+      $vars['rows2'][$key] = $view_builder->view($value['#block_content'], 'thumbsnail_slide_image');
+      $vars['rows2'][$key]['#attributes']['class'] = ['swiper-slide'];
+      $vars['rows2'][$key]['attributes'] = new Attribute($vars['rows2'][$key]['#attributes']);
   }
-  //dd($rows2,$vars['rows']);
-  if (isset($settings['swiper_options2__']))
+  //dd($vars['rows2']);
+  if (isset($settings['swiper_options2']))
   {
     $swiper_options2 = Fullswiperoptions::formatOptions($settings['swiper_options2']);
     $vars['swiper_options2'] = $swiper_options2;
     $id = Fullswiperoptions::getUniqueId($view);
     $wrappers_attributes2->setAttribute('id', $id.rand(0,100));
     $vars['wrappers_attributes2'] = $wrappers_attributes2;
+    // remove or add the swiper class
+    if(isset($settings['swiper2']))
+      $swiper_class2 = $settings['swiper2'];
+    else
+      $swiper_class2 = 'swiper';
     // disable breakpoints options : 
     if(isset($swiper_options2['breakpoints_status']) && !$swiper_options2['breakpoints_status'])
       unset($swiper_options2['breakpoints']);
@@ -53,8 +60,8 @@ function template_preprocess_fullswiperoptions_thumbsnav(&$vars) {
     $vars['swipper_attributes2'] = new Attribute([
       'class' => [
         //
+        $swiper_class2,
         'swiper-full-options',
-        $settings['theme']
       ],
       'data-swiper' => Json::encode($swiper_options2)
     ]);
