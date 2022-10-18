@@ -176,6 +176,11 @@ class Fullswiperoptions extends StylePluginBase {
         ],
         '#title' => $this->t('breakpoint '.$bp),
       ];
+      $form['swiper_options']['breakpoints'][$bp]['centeredSlides'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('centeredSlides'),
+        '#default_value' => $this->options['swiper_options']['breakpoints'][$bp]['centeredSlides']
+      ];
       $form['swiper_options']['breakpoints'][$bp]['slidesPerView'] = [
         '#type' => 'number',
         '#title' => $this->t('slidesPerView '),
