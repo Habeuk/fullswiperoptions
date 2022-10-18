@@ -71,12 +71,25 @@ class Fullswiperoptions extends StylePluginBase {
         'clothing--right' => 'clothing-right'
       ]
     ];
-    //
+    // adding swiper or not : 
+    $form['swiper'] = [
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#default_value' => $this->options['swiper'],
+      '#title' => $this->t('Définition de Swiper'),
+      '#description' => $this->t('La plupart des modèles de sliders utilisatnt Swiper utilise la classe swiper pour l\'initialisation'),
+    ];
+    $this->swiper_options($form);
+  }
+
+  protected function swiper_options(&$form){
+    // fields for the swiper settings
     $form['swiper_options'] = [
       '#type' => 'details',
       '#title' => $this->t('Swiper settings')
     ];
-    //
+    // field for settings direction
     $form['swiper_options']['direction'] = [
       '#type' => 'select',
       '#title' => $this->t(' Direction '),
@@ -180,29 +193,36 @@ class Fullswiperoptions extends StylePluginBase {
       '#title' => $this->t('speed'),
       '#default_value' => $this->options['swiper_options']['speed']
     ];
-    //
+    // field for spaceBetween
     $form['swiper_options']['spaceBetween'] = [
       '#type' => 'number',
       '#title' => $this->t('space Between'),
       '#default_value' => $this->options['swiper_options']['spaceBetween']
     ];
-    //
+    // field for loop
     $form['swiper_options']['loop'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Loop'),
       '#default_value' => $this->options['swiper_options']['loop']
     ];
-    //
+    // field for grabCursor
+    $form['swiper_options']['grabCursor'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Grab Cursor'),
+      '#default_value' => $this->options['swiper_options']['grabCursor']
+    ];
+    // field for the navigation buttons
     $form['swiper_options']['navigation'] = [
       '#type' => 'details',
       '#title' => $this->t('Navigation')
     ];
-    //
+    // field for the navigation status
     $form['swiper_options']['navigation']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('display navigation'),
       '#default_value' => isset($this->options['swiper_options']['navigation']['status']) ? $this->options['swiper_options']['navigation']['status'] : false
     ];
+
   }
   
   public function submitOptionsForm(&$form, FormStateInterface $form_state) {

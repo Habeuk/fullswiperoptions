@@ -33,9 +33,15 @@ function fullswiperoptions_theme() {
       ],
       'file' => 'fullswiperoptions.theme.inc'
     ],
-    'fullswiperoptions_carrouselnav' => [
+    'fullswiperoptions_blogcarrousel' => [
       'preprocess functions' => [
         'template_preprocess_fullswiperoptions_blogcarrousel'
+      ],
+      'file' => 'fullswiperoptions.theme.inc'
+    ],
+    'fullswiperoptions_thumbsnav' => [
+      'preprocess functions' => [
+        'template_preprocess_fullswiperoptions_thumbsnav'
       ],
       'file' => 'fullswiperoptions.theme.inc'
     ]

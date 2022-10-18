@@ -1,5 +1,5 @@
 <div {{attributes}}>
-	<div {{ swipper_attributes.addClass('swiper') }}>
+	<div {{ swipper_attributes.addClass('') }}>
 		<div class="swiper-wrapper">
 			{% for row in rows %}
 			<div {{row.attributes}}>
@@ -13,8 +13,15 @@
 			carousel-nav-testy -- carousel-nav carousel-nav--carree carousel-nav--black d-flex justify-content-center
 			carousel-testy-nav-rond -- carousel-nav carousel-nav--black d-flex justify-content-center
 			blog-carousel -- carousel-rond
+			thumbs-carousel -- carousel-nav
 		#}
 		<!-- If we need pagination -->
-		<div {{ swipper_attributes_paginations.addClass() }} {#class="swiper-pagination carousel-nav"#}></div>
+		<div {{ swipper_attributes_paginations.addClass() }}>
+		</div>
+		<!-- next and Prev -->
+		{% if swiper_options.navigation.nextEl == ".swiper-button-next" and swiper_options.navigation.prevEl == ".swiper-button-prev" %}
+			<div class="swiper-button-prev"></div>
+			<div class="swiper-button-next"></div>
+		{% endif %}
 	</div>
 </div>

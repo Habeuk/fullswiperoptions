@@ -62,6 +62,13 @@ class Fullswiperoptions {
       case 'spaceBetween':
         $value = (int) $value;
         break;
+      case 'loopedSlides':
+        if(empty($value)) {
+          $value = null;
+        } else {
+          $value = (int) $value;
+        }
+        break;
       case 'breakpoints':
         foreach ($value as $key => $v) {
           $v['spaceBetween'] = (int) $v['spaceBetween'];
@@ -88,7 +95,7 @@ class Fullswiperoptions {
         break;
     }
   }
-  
+
   public static function FullswiperoptionsTheme(&$vars) {
     $wrappers_attributes = new Attribute();
     $view = $vars['view'];
@@ -110,14 +117,23 @@ class Fullswiperoptions {
     }
     // }
     // disable breakpoints options : 
-    if(isset($swiper_options['breakpoints_status']))
-    if (!$swiper_options['breakpoints_status'])
-    {
+    if(isset($swiper_options['breakpoints_status']) && !$swiper_options['breakpoints_status'])
       unset($swiper_options['breakpoints']);
+    // disable supplement_class_status 
+    if(isset($swiper_options['supplement_class_status']) && !$swiper_options['supplement_class_status'])
+    { 
+      unset($swiper_options['slideClass']);
+      unset($swiper_options['slideActiveClass']);
     }
+    // remove or add the swiper class
+    if(isset($settings['swiper']))
+      $swiper_class = $settings['swiper'];
+    else
+      $swiper_class = 'swiper';
+    // define the default values for swipper_attributes 
     $vars['swipper_attributes'] = new Attribute([
       'class' => [
-        'swiper',
+        $swiper_class,
         'swiper-full-options',
         $settings['theme']
       ],
