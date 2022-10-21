@@ -37,6 +37,7 @@ class CarrouselNav extends Fullswiperoptions {
       '#options' => [
         'carousel-hero' => 'hero(round-left-white)',
         'project-tabs' => 'project-tabs(two type images)',
+        'project-card' => 'project-card(project-with-teasers)',
         'blog-carousel' => 'blog-carousel(no-bullets)',
         'carousel-testy-nav' => 'testy-nav(square-center-bullets)',
         'carousel-testy' => 'testy(round-center-black)',

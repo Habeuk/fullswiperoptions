@@ -144,6 +144,7 @@ class Fullswiperoptions {
       ],
       'data-swiper' => Json::encode($swiper_options)
     ]);
+    // checking value for the bullets and set the corresponding types of
     $class_pagination = '';
     switch ($settings['theme']) {
       case 'carousel-testy':
@@ -151,6 +152,9 @@ class Fullswiperoptions {
         break;
       case 'project-tabs':
         $class_pagination = 'carousel-nav--carree carousel-nav--black d-flex justify-content-center';
+        break;
+      case 'project-card':
+        $class_pagination = '';
         break;
       case 'blog-carousel':
         $class_pagination = 'carousel-rond';
@@ -167,10 +171,16 @@ class Fullswiperoptions {
       default:
         break;
     }
+    // remove the class carousel-nav for certain view
+    $class_theme = 'carousel-nav';
+    if ($settings['theme'] == 'project-card')
+      $class_theme = 'd-none';
+    // set the definitive Attributes for the swipers
     $vars['swipper_attributes_paginations'] = new Attribute([
       'class'=>[
         'swiper-pagination',
-        'carousel-nav',
+        $class_theme,
+        //'carousel-nav',
         $class_pagination
         ]
       ]
