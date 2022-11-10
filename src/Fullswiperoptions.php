@@ -70,7 +70,7 @@ class Fullswiperoptions {
         }
         break;
       case 'slidesPerView':
-        if(empty($value)) {
+        if(isset($value['slidesPerView']) && empty($value['slidesPerView']) ) {
           unset($value['slidesPerView']);
         }
         break;
