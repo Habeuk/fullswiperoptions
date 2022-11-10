@@ -33,16 +33,20 @@ class CarrouselNav extends Fullswiperoptions {
     ];
     $form['theme'] = [
       '#type' => 'select',
-      '#title' => $this->t(' Model '),
+      '#title' => $this->t(' Container Model '),
       '#options' => [
-        'carrousel--left' => 'nav-left',
-        'carrousel--bottom--primary' => 'nav-bottom-primary',
-        'carrousel--bottom--image' => 'nav-bottom-image',
-        'carrousel--right' => 'nav-right'
-      ]
+        'carousel-hero' => 'hero(round-left-white)',
+        'project-tabs' => 'project-tabs(two type images)',
+        'project-card' => 'project-card(project-with-teasers)',
+        'blog-carousel' => 'blog-carousel(no-bullets)',
+        'carousel-testy-nav' => 'testy-nav(square-center-bullets)',
+        'carousel-testy' => 'testy(round-center-black)',
+        'carousel-nav-testy' => 'nav-testy(square-center-black)',
+        'carousel-testy-nav-rond' => 'testy-nav-rond(square-center-black)'
+      ],
+      '#default_value' => $this->options['theme']
     ];
   }
-  
   /**
    * config library and some params
    *

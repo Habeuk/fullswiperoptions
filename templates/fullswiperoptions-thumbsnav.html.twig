@@ -1,0 +1,26 @@
+<div {{attributes}}>
+	<div {{ swipper_attributes.addClass('swiper') }}>
+		<div class="swiper-wrapper">
+			{% for row in rows %}
+			<div {{row.attributes}}>
+				{{ row|without('attributes') }}
+				{#{ dump() }#}
+			</div>
+			{% endfor %}
+		</div>
+		<!-- sub-slide -->
+		<div class="thumbnail-slide">
+			<div class="swiper-pagination carousel-nav"></div>
+			<div thumbsSlider="" {{ swipper_attributes2.addClass('thumbnail-swiper') }}>
+				<div class="swiper-wrapper">
+					{% for row in rows2 %}
+					<div {{row.attributes}}>
+						{{ row|without('attributes') }}
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	{#{ dump() }#}
+</div>

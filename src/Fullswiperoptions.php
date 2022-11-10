@@ -62,6 +62,31 @@ class Fullswiperoptions {
       case 'spaceBetween':
         $value = (int) $value;
         break;
+      case 'loopedSlides':
+        if(empty($value)) {
+          $value = null;
+        } else {
+          $value = (int) $value;
+        }
+        break;
+      case 'slidesPerView':
+        if(empty($value)) {
+          unset($value['slidesPerView']);
+        }
+        break;
+      case 'breakpoints':
+        foreach ($value as $key => $v) {
+          $v['spaceBetween'] = (int) $v['spaceBetween'];
+          $value[$key] = $v;
+        }
+        break;
+      case 'module':
+        foreach ($value as $key => $v) {
+          if($v){
+            $value[] = $key;
+          }
+          unset($value[$key]);
+        }
       case 'navigation':
         if (isset($value['status'])) {
           if (!$value['status'])
@@ -81,6 +106,7 @@ class Fullswiperoptions {
     $handler = $vars['view']->style_plugin;
     $settings = $handler->options;
     $swiper_options = Fullswiperoptions::formatOptions($settings['swiper_options']);
+    //dump($swiper_options);
     $vars['swiper_options'] = $swiper_options;
     $id = Fullswiperoptions::getUniqueId($view);
     $wrappers_attributes->setAttribute('id', $id);
@@ -94,14 +120,70 @@ class Fullswiperoptions {
       $vars['rows'][$num]['attributes'] = new Attribute($vars['rows'][$num]['attributes']);
     }
     // }
+    // disable breakpoints options : 
+    if(isset($swiper_options['breakpoints_status']) && !$swiper_options['breakpoints_status'])
+      unset($swiper_options['breakpoints']);
+    // disable supplement_class_status 
+    if(isset($swiper_options['supplement_class_status']) && !$swiper_options['supplement_class_status'])
+    { 
+      unset($swiper_options['slideClass']);
+      unset($swiper_options['slideActiveClass']);
+    }
+    // remove or add the swiper class
+    if(isset($settings['swiper']))
+      $swiper_class = $settings['swiper'];
+    else
+      $swiper_class = 'swiper';
+    // define the default values for swipper_attributes 
     $vars['swipper_attributes'] = new Attribute([
       'class' => [
-        'swiper',
+        $swiper_class,
         'swiper-full-options',
         $settings['theme']
       ],
       'data-swiper' => Json::encode($swiper_options)
     ]);
+    // checking value for the bullets and set the corresponding types of
+    $class_pagination = '';
+    switch ($settings['theme']) {
+      case 'carousel-testy':
+        $class_pagination = 'carousel-nav--black d-flex justify-content-center';
+        break;
+      case 'project-tabs':
+        $class_pagination = 'carousel-nav--carree carousel-nav--black d-flex justify-content-center';
+        break;
+      case 'project-card':
+        $class_pagination = '';
+        break;
+      case 'blog-carousel':
+        $class_pagination = 'carousel-rond';
+        break;
+      case 'carousel-nav-testy':
+        $class_pagination = 'carousel-nav--carree carousel-nav--black d-flex justify-content-center';
+        break;
+      case 'carousel-testy-nav':
+        $class_pagination = 'carousel-nav--carree carousel-nav--black d-flex justify-content-center';
+        break;
+      case 'carousel-testy-nav-rond':
+        $class_pagination = 'carousel-nav--black d-flex justify-content-center';
+        break;
+      default:
+        break;
+    }
+    // remove the class carousel-nav for certain view
+    $class_theme = 'carousel-nav';
+    if ($settings['theme'] == 'project-card')
+      $class_theme = 'd-none';
+    // set the definitive Attributes for the swipers
+    $vars['swipper_attributes_paginations'] = new Attribute([
+      'class'=>[
+        'swiper-pagination',
+        $class_theme,
+        //'carousel-nav',
+        $class_pagination
+        ]
+      ]
+    );
   }
 
 }

@@ -60,6 +60,7 @@ class Fullswiperoptions extends StylePluginBase {
       '#type' => 'hidden',
       '#value' => 'fullswiperoptions/fullswiperoptions'
     ];
+    // this config add some options to the container swiper
     $form['theme'] = [
       '#type' => 'select',
       '#title' => $this->t(' Model '),
@@ -70,12 +71,25 @@ class Fullswiperoptions extends StylePluginBase {
         'clothing--right' => 'clothing-right'
       ]
     ];
-    //
+    // adding swiper or not : 
+    $form['swiper'] = [
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#default_value' => $this->options['swiper'],
+      '#title' => $this->t('Définition de Swiper'),
+      '#description' => $this->t('La plupart des modèles de sliders utilisatnt Swiper utilise la classe swiper pour l\'initialisation'),
+    ];
+    $this->swiper_options($form);
+  }
+
+  protected function swiper_options(&$form){
+    // fields for the swiper settings
     $form['swiper_options'] = [
       '#type' => 'details',
       '#title' => $this->t('Swiper settings')
     ];
-    //
+    // field for settings direction
     $form['swiper_options']['direction'] = [
       '#type' => 'select',
       '#title' => $this->t(' Direction '),
@@ -85,46 +99,135 @@ class Fullswiperoptions extends StylePluginBase {
       ],
       '#default_value' => $this->options['swiper_options']['direction']
     ];
-    // for more options : 
-    $form['swiper_options']['options'] = [
-      '#type' => 'select',
-      '#title' => $this->t(' Options '),
+    // for module  : 
+    $form['swiper_options']['module'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t(' Module '),
       '#options' => [
-        'controller' => 'controller',
-        'navigation' => 'navigation',
-        'pagination' => 'pagination',
-        'thumbs' => 'thumbs',
+        'Controller' => 'controller',
+        'Navigation' => 'navigation',
+        'Pagination' => 'pagination',
+        'Thumbs' => 'thumbs',
       ],
-      '#default_value' => $this->options['swiper_options']['options']
+      '#default_value' => $this->options['swiper_options']['module']
     ];
+    // using supplements class : 
+    $form['swiper_options']['supplement_class_status'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use Supplement Class'),
+      '#default_value' => $this->options['swiper_options']['supplement_class_status']
+    ];
+    $form['swiper_options']['slideClass'] = [
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#default_value' => $this->options['swiper_options']['slideClass'],
+      '#states' => [
+        'visible' => [
+          ':input[name="style_options[swiper_options][supplement_class_status]"]' => [
+            'checked' => TRUE
+          ]
+        ]
+      ],
+      '#title' => $this->t('slideClass'),
+    ];
+    $form['swiper_options']['slideActiveClass'] = [
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#default_value' => $this->options['swiper_options']['slideActiveClass'],
+      '#states' => [
+        'visible' => [
+          ':input[name="style_options[swiper_options][supplement_class_status]"]' => [
+            'checked' => TRUE
+          ]
+        ]
+      ],
+      '#title' => $this->t('slideActiveClass'),
+    ];
+    // form for loopedSlides : 
+    $form['swiper_options']['loopedSlides'] = [
+      '#type' => 'number',
+      '#title' => $this->t('loopedSlides'),
+      '#default_value' => $this->options['swiper_options']['loopedSlides']
+    ];
+    // form for slidesPerView : 
+    $form['swiper_options']['slidesPerView'] = [
+      '#type' => 'number',
+      '#title' => $this->t('slidesPerView'),
+      '#default_value' => $this->options['swiper_options']['slidesPerView']
+    ];
+    // form for breakpoints : 
+    $form['swiper_options']['breakpoints_status'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Use breakpoints'),
+      '#default_value' => $this->options['swiper_options']['breakpoints_status']
+    ];
+    $bpts = [ 576, 769, 992, 1201, 1601];
+    foreach ($bpts as $bp) {
+      $form['swiper_options']['breakpoints'][$bp] = [
+        '#type' => 'details',
+        '#states' => [
+          'visible' => [
+            ':input[name="style_options[swiper_options][breakpoints_status]"]' => [
+              'checked' => TRUE
+            ]
+          ]
+        ],
+        '#title' => $this->t('breakpoint '.$bp),
+      ];
+      $form['swiper_options']['breakpoints'][$bp]['centeredSlides'] = [
+        '#type' => 'checkbox',
+        '#title' => $this->t('centeredSlides'),
+        '#default_value' => $this->options['swiper_options']['breakpoints'][$bp]['centeredSlides']
+      ];
+      $form['swiper_options']['breakpoints'][$bp]['slidesPerView'] = [
+        '#type' => 'number',
+        '#title' => $this->t('slidesPerView '),
+        '#default_value' => $this->options['swiper_options']['breakpoints'][$bp]['slidesPerView']
+      ];
+      $form['swiper_options']['breakpoints'][$bp]['spaceBetween'] = [
+        '#type' => 'number',
+        '#title' => $this->t('spaceBetween '),
+        '#default_value' => $this->options['swiper_options']['breakpoints'][$bp]['spaceBetween']
+      ];
+    }
+    // form for the speed
     $form['swiper_options']['speed'] = [
       '#type' => 'number',
       '#title' => $this->t('speed'),
       '#default_value' => $this->options['swiper_options']['speed']
     ];
-    //
+    // field for spaceBetween
     $form['swiper_options']['spaceBetween'] = [
       '#type' => 'number',
       '#title' => $this->t('space Between'),
       '#default_value' => $this->options['swiper_options']['spaceBetween']
     ];
-    //
+    // field for loop
     $form['swiper_options']['loop'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Loop'),
       '#default_value' => $this->options['swiper_options']['loop']
     ];
-    //
+    // field for grabCursor
+    $form['swiper_options']['grabCursor'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Grab Cursor'),
+      '#default_value' => $this->options['swiper_options']['grabCursor']
+    ];
+    // field for the navigation buttons
     $form['swiper_options']['navigation'] = [
       '#type' => 'details',
       '#title' => $this->t('Navigation')
     ];
-    //
+    // field for the navigation status
     $form['swiper_options']['navigation']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('display navigation'),
       '#default_value' => isset($this->options['swiper_options']['navigation']['status']) ? $this->options['swiper_options']['navigation']['status'] : false
     ];
+
   }
   
   public function submitOptionsForm(&$form, FormStateInterface $form_state) {

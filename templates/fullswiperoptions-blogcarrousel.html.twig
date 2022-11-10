@@ -1,0 +1,13 @@
+<div {{attributes}}>
+	<div {{ swipper_attributes.addClass('swiper') }}>
+		<div class="swiper-wrapper">
+			{% for row in rows %}
+			<div {{row.attributes}}>
+				{{ row|without('attributes') }}
+			</div>
+			{% endfor %}
+		</div>
+		<!-- If we need pagination -->
+		{#<div class="swiper-pagination carousel-rond"></div>#}
+	</div>
+</div>

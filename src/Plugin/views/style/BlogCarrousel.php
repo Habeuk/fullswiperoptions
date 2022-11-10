@@ -9,15 +9,15 @@ use Drupal\core\form\FormStateInterface;
  * the slider is linked to a titles of some content
  *
  * @ViewsStyle(
- *  id = "flashinfo_slider",
- *  title = @Translation(" Flash Info Swiper "),
- *  help = @Translation(" Add some slider controls and dinamize slider titles "),
- *  theme = "fullswiperoptions_flashinfo_slider",
- *  dispplay_types = { "normal" }
+ *  id = "blogcarrousel",
+ *  title = @Translation(" Blog Carrousel "),
+ *  help = @Translation(" Add some Slider type for displaying slides "),
+ *  theme = "fullswiperoptions_blogcarrousel",
+ *  display_types = { "normal" }
  * )
  *
  */
-class FlashInfo extends Fullswiperoptions {
+class BlogCarrousel extends Fullswiperoptions {
   
   /**
    * build form options
@@ -29,10 +29,18 @@ class FlashInfo extends Fullswiperoptions {
     parent::buildOptionsForm($form, $form_state);
     $form['layoutgenentitystyles_view'] = [
       '#type' => 'hidden',
-      '#value' => 'fullswiperoptions/fullswiperflashinfo'
+      '#value' => 'fullswiperoptions/blogcarrousel'
+    ];
+    $form['theme'] = [
+      '#type' => 'select',
+      '#title' => $this->t(' Container Model '),
+      '#options' => [
+        'blog-carousel' => 'blog-carousel(no-bullets)',
+        'carousel-testy' => 'testy(round-center-black)',
+      ],
+      '#default_value' => $this->options['theme']
     ];
   }
-  
   /**
    * config library and some params
    *
@@ -44,7 +52,7 @@ class FlashInfo extends Fullswiperoptions {
     $library = $this->options['layoutgenentitystyles_view'];
     // dump($library);
     if (empty($library)) {
-      $library = 'fullswiperoptions/fullswiperflashinfo';
+      $library = 'fullswiperoptions/blogcarrousel';
     }
     
     $this->LayoutgenentitystylesServices->addStyleFromView($library, $this->view->id(), $this->view->current_display);
