@@ -8,7 +8,7 @@ use Drupal\Core\Template\Attribute;
 use Drupal\Component\Serialization\Json;
 
 class Fullswiperoptions {
-  
+
   public static function options($k = null) {
     $options = [
       'direction' => 'horizontal',
@@ -34,7 +34,7 @@ class Fullswiperoptions {
     }
     return $options;
   }
-  
+
   /**
    *
    * @param ViewExecutable $view
@@ -44,7 +44,7 @@ class Fullswiperoptions {
     $id = $view->storage->id() . '-' . $view->current_display;
     return Html::getUniqueId('swiper-' . $id);
   }
-  
+
   public static function formatOptions(array $values) {
     $defauls = self::options();
     foreach ($values as $k => $value) {
@@ -55,7 +55,7 @@ class Fullswiperoptions {
     }
     return $defauls;
   }
-  
+
   public static function formatValue($key, &$value) {
     switch ($key) {
       case 'speed':
@@ -71,11 +71,10 @@ class Fullswiperoptions {
         }
         break;
       default:
-        ;
         break;
     }
   }
-  
+
   public static function FullswiperoptionsTheme(&$vars) {
     $wrappers_attributes = new Attribute();
     $view = $vars['view'];
@@ -104,5 +103,5 @@ class Fullswiperoptions {
       'data-swiper' => Json::encode($swiper_options)
     ]);
   }
-  
+
 }
