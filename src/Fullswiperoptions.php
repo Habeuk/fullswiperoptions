@@ -6,9 +6,10 @@ use Drupal\Component\Utility\Html;
 use Drupal\views\ViewExecutable;
 use Drupal\Core\Template\Attribute;
 use Drupal\Component\Serialization\Json;
+use Symfony\Component\Validator\Constraints\IsNull;
 
 class Fullswiperoptions {
-
+  
   public static function options($k = null) {
     $options = [
       'direction' => 'horizontal',
@@ -34,7 +35,7 @@ class Fullswiperoptions {
     }
     return $options;
   }
-
+  
   /**
    *
    * @param ViewExecutable $view
@@ -44,7 +45,7 @@ class Fullswiperoptions {
     $id = $view->storage->id() . '-' . $view->current_display;
     return Html::getUniqueId('swiper-' . $id);
   }
-
+  
   public static function formatOptions(array $values) {
     $defauls = self::options();
     foreach ($values as $k => $value) {
@@ -55,7 +56,7 @@ class Fullswiperoptions {
     }
     return $defauls;
   }
-
+  
   public static function formatValue($key, &$value) {
     switch ($key) {
       case 'speed':
@@ -63,15 +64,11 @@ class Fullswiperoptions {
         $value = (int) $value;
         break;
       case 'loopedSlides':
-        if(empty($value)) {
-          $value = null;
-        } else {
-          $value = (int) $value;
+        if (empty($value)) {
+          $value = 0;
         }
-        break;
-      case 'slidesPerView':
-        if(isset($value['slidesPerView']) && empty($value['slidesPerView']) ) {
-          unset($value['slidesPerView']);
+        else {
+          $value = (int) $value;
         }
         break;
       case 'breakpoints':
@@ -82,7 +79,7 @@ class Fullswiperoptions {
         break;
       case 'module':
         foreach ($value as $key => $v) {
-          if($v){
+          if ($v) {
             $value[] = $key;
           }
           unset($value[$key]);
@@ -99,14 +96,14 @@ class Fullswiperoptions {
         break;
     }
   }
-
+  
   public static function FullswiperoptionsTheme(&$vars) {
     $wrappers_attributes = new Attribute();
     $view = $vars['view'];
     $handler = $vars['view']->style_plugin;
     $settings = $handler->options;
     $swiper_options = Fullswiperoptions::formatOptions($settings['swiper_options']);
-    //dump($swiper_options);
+    // dump($swiper_options);
     $vars['swiper_options'] = $swiper_options;
     $id = Fullswiperoptions::getUniqueId($view);
     $wrappers_attributes->setAttribute('id', $id);
@@ -120,21 +117,33 @@ class Fullswiperoptions {
       $vars['rows'][$num]['attributes'] = new Attribute($vars['rows'][$num]['attributes']);
     }
     // }
-    // disable breakpoints options : 
-    if(isset($swiper_options['breakpoints_status']) && !$swiper_options['breakpoints_status'])
+    // disable breakpoints options :
+    if (isset($swiper_options['breakpoints_status']) && !$swiper_options['breakpoints_status'])
       unset($swiper_options['breakpoints']);
-    // disable supplement_class_status 
-    if(isset($swiper_options['supplement_class_status']) && !$swiper_options['supplement_class_status'])
-    { 
+    // disable supplement_class_status
+    if (isset($swiper_options['supplement_class_status']) && !$swiper_options['supplement_class_status']) {
       unset($swiper_options['slideClass']);
       unset($swiper_options['slideActiveClass']);
+      unset($swiper_options['supplement_class_status']);
+    }
+    // Remove loopedSlides if is empty.
+    if (isset($swiper_options['loopedSlides']) && !$swiper_options['loopedSlides']) {
+      unset($swiper_options['loopedSlides']);
+    }
+    // remove slidesPerView
+    if (isset($swiper_options['slidesPerView']) && empty($swiper_options['slidesPerView'])) {
+      unset($swiper_options['slidesPerView']);
+    }
+    // remove breakpoints_status
+    if (isset($swiper_options['breakpoints_status']) && !$swiper_options['breakpoints_status']) {
+      unset($swiper_options['breakpoints_status']);
     }
     // remove or add the swiper class
-    if(isset($settings['swiper']))
+    if (isset($settings['swiper']))
       $swiper_class = $settings['swiper'];
     else
       $swiper_class = 'swiper';
-    // define the default values for swipper_attributes 
+    // define the default values for swipper_attributes
     $vars['swipper_attributes'] = new Attribute([
       'class' => [
         $swiper_class,
@@ -176,14 +185,13 @@ class Fullswiperoptions {
       $class_theme = 'd-none';
     // set the definitive Attributes for the swipers
     $vars['swipper_attributes_paginations'] = new Attribute([
-      'class'=>[
+      'class' => [
         'swiper-pagination',
         $class_theme,
-        //'carousel-nav',
+        // 'carousel-nav',
         $class_pagination
-        ]
       ]
-    );
+    ]);
   }
-
+  
 }
