@@ -102,6 +102,10 @@ class Fullswiperoptions {
     $view = $vars['view'];
     $handler = $vars['view']->style_plugin;
     $settings = $handler->options;
+    if (empty($settings['theme'])) {
+      \Drupal::messenger()->addWarning("le module swipper n'est pas correctement configurer");
+      return;
+    }
     $swiper_options = Fullswiperoptions::formatOptions($settings['swiper_options']);
     // dump($swiper_options);
     $vars['swiper_options'] = $swiper_options;
