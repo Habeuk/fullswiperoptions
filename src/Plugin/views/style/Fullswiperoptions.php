@@ -65,25 +65,26 @@ class Fullswiperoptions extends StylePluginBase {
       '#type' => 'select',
       '#title' => $this->t(' Model '),
       '#options' => [
-        'clothing--left' => 'clothing-left',
-        'clothing--left--primary' => 'clothing--left--primary',
-        'clothing--bottom--primary' => 'clothing--bottom--primary',
-        'clothing--right' => 'clothing-right'
-      ]
+        'clothing--left clothing--left--primary' => 'clothing-left primary-color',
+        'clothing--left clothing--left--background' => 'clothing-left background-color',
+        'clothing--bottom clothing--bottom--primary' => 'clothing--bottom primary-color',
+        'clothing--bottom clothing--bottom--background' => 'clothing--bottom background-color'
+      ],
+      '#default_value' => $this->options['theme']
     ];
-    // adding swiper or not : 
+    // adding swiper or not :
     $form['swiper'] = [
       '#type' => 'textfield',
       '#size' => 60,
       '#maxlength' => 128,
       '#default_value' => $this->options['swiper'],
       '#title' => $this->t('Définition de Swiper'),
-      '#description' => $this->t('La plupart des modèles de sliders utilisatnt Swiper utilise la classe swiper pour l\'initialisation'),
+      '#description' => $this->t('La plupart des modèles de sliders utilisatnt Swiper utilise la classe swiper pour l\'initialisation')
     ];
     $this->swiper_options($form);
   }
-
-  protected function swiper_options(&$form){
+  
+  protected function swiper_options(&$form) {
     // fields for the swiper settings
     $form['swiper_options'] = [
       '#type' => 'details',
@@ -99,7 +100,7 @@ class Fullswiperoptions extends StylePluginBase {
       ],
       '#default_value' => $this->options['swiper_options']['direction']
     ];
-    // for module  : 
+    // for module :
     $form['swiper_options']['module'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t(' Module '),
@@ -107,11 +108,11 @@ class Fullswiperoptions extends StylePluginBase {
         'Controller' => 'controller',
         'Navigation' => 'navigation',
         'Pagination' => 'pagination',
-        'Thumbs' => 'thumbs',
+        'Thumbs' => 'thumbs'
       ],
       '#default_value' => $this->options['swiper_options']['module']
     ];
-    // using supplements class : 
+    // using supplements class :
     $form['swiper_options']['supplement_class_status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Use Supplement Class'),
@@ -129,7 +130,7 @@ class Fullswiperoptions extends StylePluginBase {
           ]
         ]
       ],
-      '#title' => $this->t('slideClass'),
+      '#title' => $this->t('slideClass')
     ];
     $form['swiper_options']['slideActiveClass'] = [
       '#type' => 'textfield',
@@ -143,27 +144,33 @@ class Fullswiperoptions extends StylePluginBase {
           ]
         ]
       ],
-      '#title' => $this->t('slideActiveClass'),
+      '#title' => $this->t('slideActiveClass')
     ];
-    // form for loopedSlides : 
+    // form for loopedSlides :
     $form['swiper_options']['loopedSlides'] = [
       '#type' => 'number',
       '#title' => $this->t('loopedSlides'),
       '#default_value' => $this->options['swiper_options']['loopedSlides']
     ];
-    // form for slidesPerView : 
+    // form for slidesPerView :
     $form['swiper_options']['slidesPerView'] = [
       '#type' => 'number',
       '#title' => $this->t('slidesPerView'),
       '#default_value' => $this->options['swiper_options']['slidesPerView']
     ];
-    // form for breakpoints : 
+    // form for breakpoints :
     $form['swiper_options']['breakpoints_status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Use breakpoints'),
       '#default_value' => $this->options['swiper_options']['breakpoints_status']
     ];
-    $bpts = [ 576, 769, 992, 1201, 1601];
+    $bpts = [
+      576,
+      769,
+      992,
+      1201,
+      1601
+    ];
     foreach ($bpts as $bp) {
       $form['swiper_options']['breakpoints'][$bp] = [
         '#type' => 'details',
@@ -174,7 +181,7 @@ class Fullswiperoptions extends StylePluginBase {
             ]
           ]
         ],
-        '#title' => $this->t('breakpoint '.$bp),
+        '#title' => $this->t('breakpoint ' . $bp)
       ];
       $form['swiper_options']['breakpoints'][$bp]['centeredSlides'] = [
         '#type' => 'checkbox',
@@ -227,7 +234,6 @@ class Fullswiperoptions extends StylePluginBase {
       '#title' => $this->t('display navigation'),
       '#default_value' => isset($this->options['swiper_options']['navigation']['status']) ? $this->options['swiper_options']['navigation']['status'] : false
     ];
-
   }
   
   public function submitOptionsForm(&$form, FormStateInterface $form_state) {
@@ -238,7 +244,6 @@ class Fullswiperoptions extends StylePluginBase {
     if (empty($library)) {
       $library = 'fullswiperoptions/fullswiperoptions';
     }
-    
     $this->LayoutgenentitystylesServices->addStyleFromView($library, $this->view->id(), $this->view->current_display);
   }
   
