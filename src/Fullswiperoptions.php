@@ -206,6 +206,25 @@ class Fullswiperoptions {
         $class_pagination
       ]
     ]);
+    // buttons_color
+    $buttons_pagination = '';
+    if (!empty($settings['buttons_color'])) {
+      $buttons_pagination .= ' ' . $settings['buttons_color'];
+    }
+    $vars['swipper_attributes_buttons_next'] = new Attribute([
+      'class' => [
+        'swiper-button',
+        'swiper-button-next',
+        $buttons_pagination
+      ]
+    ]);
+    $vars['swipper_attributes_buttons_prev'] = new Attribute([
+      'class' => [
+        'swiper-button',
+        'swiper-button-prev',
+        $buttons_pagination
+      ]
+    ]);
   }
   
 }

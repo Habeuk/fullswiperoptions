@@ -83,6 +83,17 @@ class Fullswiperoptions extends StylePluginBase {
       ],
       '#default_value' => $this->options['pagination_color']
     ];
+    $form['buttons_color'] = [
+      '#type' => 'select',
+      '#title' => $this->t(' Buttons color (next&prev) '),
+      '#options' => [
+        '' => 'Default',
+        'swiper-button--primary' => 'Coleur primaire',
+        'swiper-button--background' => 'Coleur du background',
+        'swiper-button--secondary' => 'Coleur secondaire'
+      ],
+      '#default_value' => $this->options['buttons_color']
+    ];
     // adding swiper or not :
     $form['swiper'] = [
       '#type' => 'textfield',

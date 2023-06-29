@@ -14,11 +14,11 @@
 				{% endfor %}
 			</div>
 			<!-- If we need pagination -->
-			<div class="swiper-pagination"></div>
+			<div {{ swipper_attributes_paginations.addClass() }}>
 			<!-- If we need navigation buttons -->
 			{% if swiper_options.navigation %}
-				<div class="swiper-button-prev"></div>
-				<div class="swiper-button-next"></div>
+				<div {{swipper_attributes_buttons_prev}}></div>
+				<div {{swipper_attributes_buttons_next}}></div>
 			{% endif %}
 			<!-- If we need scrollbar -->
 			{% if swiper_options.scroll %}

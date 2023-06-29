@@ -20,8 +20,12 @@
 		</div>
 		<!-- next and Prev -->
 		{% if swiper_options.navigation.nextEl == ".swiper-button-next" and swiper_options.navigation.prevEl == ".swiper-button-prev" %}
-			<div class="swiper-button-prev"></div>
-			<div class="swiper-button-next"></div>
+			<div {{swipper_attributes_buttons_prev}}></div>
+			<div {{swipper_attributes_buttons_next}}></div>
 		{% endif %}
+		<!-- If we need scrollbar -->
+			{% if swiper_options.scroll %}
+				<div class="swiper-scrollbar"></div>
+			{% endif %}
 	</div>
 </div>
