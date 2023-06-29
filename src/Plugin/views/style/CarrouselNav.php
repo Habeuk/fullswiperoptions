@@ -10,7 +10,7 @@ use Drupal\core\form\FormStateInterface;
  *
  * @ViewsStyle(
  *  id = "carrouselnav",
- *  title = @Translation(" Carrousel Nav "),
+ *  title = @Translation(" Carrousel Nav (Swipper) "),
  *  help = @Translation(" Add some slider controls and dinamize slider titles "),
  *  theme = "fullswiperoptions_carrouselnav",
  *  display_types = { "normal" }
@@ -41,12 +41,14 @@ class CarrouselNav extends Fullswiperoptions {
         'blog-carousel' => 'blog-carousel(no-bullets)',
         'carousel-testy-nav' => 'testy-nav(square-center-bullets)',
         'carousel-testy' => 'testy(round-center-black)',
+        'carousel-testy' => 'testy(round-center-black)',
         'carousel-nav-testy' => 'nav-testy(square-center-black)',
         'carousel-testy-nav-rond' => 'testy-nav-rond(square-center-black)'
       ],
       '#default_value' => $this->options['theme']
     ];
   }
+  
   /**
    * config library and some params
    *
@@ -54,14 +56,7 @@ class CarrouselNav extends Fullswiperoptions {
    */
   public function submitOptionsForm(&$form, FormStateInterface $form_state) {
     parent::submitOptionsForm($form, $form_state);
-    // On recupere la valeur de la librairie et on ajoute:
-    $library = $this->options['layoutgenentitystyles_view'];
-    // dump($library);
-    if (empty($library)) {
-      $library = 'fullswiperoptions/carrouselnav';
-    }
-    
-    $this->LayoutgenentitystylesServices->addStyleFromView($library, $this->view->id(), $this->view->current_display);
+    // La librairie est sauvegardé par : Fullswiperoptions
   }
   
 }

@@ -157,6 +157,13 @@ class Fullswiperoptions {
       'data-swiper' => Json::encode($swiper_options)
     ]);
     // checking value for the bullets and set the corresponding types of
+    /**
+     * Cette logique n'est pas ok, car cela necessite qu'on se souvienne du
+     * resultat.
+     * cela doit etre paramettre.
+     *
+     * @var string $class_pagination
+     */
     $class_pagination = '';
     switch ($settings['theme']) {
       case 'carousel-testy':
@@ -182,6 +189,9 @@ class Fullswiperoptions {
         break;
       default:
         break;
+    }
+    if (!empty($settings['pagination_color'])) {
+      $class_pagination .= ' ' . $settings['pagination_color'];
     }
     // remove the class carousel-nav for certain view
     $class_theme = 'carousel-nav';
