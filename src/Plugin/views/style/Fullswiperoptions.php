@@ -90,7 +90,7 @@ class Fullswiperoptions extends StylePluginBase {
         '' => 'Default',
         'swiper-pagination--center-bottom' => 'Center bottom'
       ],
-      '#default_value' => $this->options['pagination_color']
+      '#default_value' => $this->options['pagination_postion']
     ];
     $form['buttons_color'] = [
       '#type' => 'select',
