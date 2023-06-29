@@ -83,6 +83,15 @@ class Fullswiperoptions extends StylePluginBase {
       ],
       '#default_value' => $this->options['pagination_color']
     ];
+    $form['pagination_postion'] = [
+      '#type' => 'select',
+      '#title' => $this->t(' Pagination position '),
+      '#options' => [
+        '' => 'Default',
+        'swiper-pagination--center-bottom' => 'Center bottom'
+      ],
+      '#default_value' => $this->options['pagination_color']
+    ];
     $form['buttons_color'] = [
       '#type' => 'select',
       '#title' => $this->t(' Buttons color (next&prev) '),
@@ -93,6 +102,17 @@ class Fullswiperoptions extends StylePluginBase {
         'swiper-button--secondary' => 'Coleur secondaire'
       ],
       '#default_value' => $this->options['buttons_color']
+    ];
+    $form['buttons_position'] = [
+      '#type' => 'select',
+      '#title' => $this->t(' Buttons position (next&prev) '),
+      '#options' => [
+        '' => 'Default',
+        'swiper-button--align-bottom-y-mobile' => 'Bottom mobile',
+        'swiper-button--align-bottom-y-tablet' => 'Bottom tablet',
+        'swiper-button--align-bottom-y' => 'Bottom'
+      ],
+      '#default_value' => $this->options['buttons_position']
     ];
     // adding swiper or not :
     $form['swiper'] = [

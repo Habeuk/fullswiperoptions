@@ -193,6 +193,9 @@ class Fullswiperoptions {
     if (!empty($settings['pagination_color'])) {
       $class_pagination .= ' ' . $settings['pagination_color'];
     }
+    if (!empty($settings['pagination_postion'])) {
+      $class_pagination .= ' ' . $settings['pagination_postion'];
+    }
     // remove the class carousel-nav for certain view
     $class_theme = 'carousel-nav';
     if ($settings['theme'] == 'project-card')
@@ -210,6 +213,9 @@ class Fullswiperoptions {
     $buttons_pagination = '';
     if (!empty($settings['buttons_color'])) {
       $buttons_pagination .= ' ' . $settings['buttons_color'];
+    }
+    if (!empty($settings['buttons_position'])) {
+      $buttons_pagination .= ' ' . $settings['buttons_position'];
     }
     $vars['swipper_attributes_buttons_next'] = new Attribute([
       'class' => [
