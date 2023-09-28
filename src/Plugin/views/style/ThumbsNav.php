@@ -10,7 +10,7 @@ use Drupal\core\form\FormStateInterface;
  *
  * @ViewsStyle(
  *  id = "thumbsnav",
- *  title = @Translation(" Thumbs Nav "),
+ *  title = @Translation("Swiper api : Thumbs Nav "),
  *  help = @Translation(" Add some slider with thumbs to dinamize slider render "),
  *  theme = "fullswiperoptions_thumbsnav",
  *  display_types = { "normal" }
@@ -35,26 +35,26 @@ class ThumbsNav extends Fullswiperoptions {
       '#type' => 'select',
       '#title' => $this->t(' Container Model '),
       '#options' => [
-        'thumbs-carousel' => 'thumbs',
+        'thumbs-carousel' => 'thumbs'
       ],
       '#default_value' => $this->options['theme']
     ];
-    // adding swiper or not : 
+    // adding swiper or not :
     $form['swiper2'] = [
       '#type' => 'textfield',
       '#size' => 60,
       '#maxlength' => 128,
       '#default_value' => $this->options['swiper2'],
       '#title' => $this->t('Définition de Swiper 2'),
-      '#description' => $this->t('La plupart des modèles de sliders utilisatnt Swiper utilise la classe swiper pour l\'initialisation'),
+      '#description' => $this->t('La plupart des modèles de sliders utilisatnt Swiper utilise la classe swiper pour l\'initialisation')
     ];
     $this->swiper_options2($form);
   }
-
+  
   /**
-   *  second view config for thumbsnail 
+   * second view config for thumbsnail
    */
-  protected function swiper_options2(&$form){
+  protected function swiper_options2(&$form) {
     // fields for the swiper settings
     $form['swiper_options2'] = [
       '#type' => 'details',
@@ -70,7 +70,7 @@ class ThumbsNav extends Fullswiperoptions {
       ],
       '#default_value' => $this->options['swiper_options2']['direction']
     ];
-    // for module  : 
+    // for module :
     $form['swiper_options2']['module'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t(' Module '),
@@ -78,11 +78,11 @@ class ThumbsNav extends Fullswiperoptions {
         'Controller' => 'controller',
         'Navigation' => 'navigation',
         'Pagination' => 'pagination',
-        'Thumbs' => 'thumbs',
+        'Thumbs' => 'thumbs'
       ],
       '#default_value' => $this->options['swiper_options2']['module']
     ];
-    // using supplements class : 
+    // using supplements class :
     $form['swiper_options2']['supplement_class_status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Use Supplement Class'),
@@ -100,7 +100,7 @@ class ThumbsNav extends Fullswiperoptions {
           ]
         ]
       ],
-      '#title' => $this->t('slideClass'),
+      '#title' => $this->t('slideClass')
     ];
     $form['swiper_options2']['slideActiveClass'] = [
       '#type' => 'textfield',
@@ -114,27 +114,33 @@ class ThumbsNav extends Fullswiperoptions {
           ]
         ]
       ],
-      '#title' => $this->t('slideActiveClass'),
+      '#title' => $this->t('slideActiveClass')
     ];
-    // form for loopedSlides : 
+    // form for loopedSlides :
     $form['swiper_options2']['loopedSlides'] = [
       '#type' => 'number',
       '#title' => $this->t('loopedSlides'),
       '#default_value' => $this->options['swiper_options2']['loopedSlides']
     ];
-    // form for slidesPerView : 
+    // form for slidesPerView :
     $form['swiper_options2']['slidesPerView'] = [
       '#type' => 'number',
       '#title' => $this->t('slidesPerView'),
       '#default_value' => $this->options['swiper_options2']['slidesPerView']
     ];
-    // form for breakpoints : 
+    // form for breakpoints :
     $form['swiper_options2']['breakpoints_status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Use breakpoints'),
       '#default_value' => $this->options['swiper_options2']['breakpoints_status']
     ];
-    $bpts = [ 576, 769, 992, 1201, 1601];
+    $bpts = [
+      576,
+      769,
+      992,
+      1201,
+      1601
+    ];
     foreach ($bpts as $bp) {
       $form['swiper_options2']['breakpoints'][$bp] = [
         '#type' => 'details',
@@ -145,7 +151,7 @@ class ThumbsNav extends Fullswiperoptions {
             ]
           ]
         ],
-        '#title' => $this->t('breakpoint '.$bp),
+        '#title' => $this->t('breakpoint ' . $bp)
       ];
       $form['swiper_options2']['breakpoints'][$bp]['slidesPerView'] = [
         '#type' => 'number',
@@ -176,7 +182,7 @@ class ThumbsNav extends Fullswiperoptions {
       '#title' => $this->t('Loop'),
       '#default_value' => $this->options['swiper_options2']['loop']
     ];
-    // filed for slideToClickedSlide 
+    // filed for slideToClickedSlide
     $form['swiper_options2']['slideToClickedSlide'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('slideToClickedSlide'),
@@ -199,8 +205,8 @@ class ThumbsNav extends Fullswiperoptions {
       '#title' => $this->t('display navigation'),
       '#default_value' => isset($this->options['swiper_options2']['navigation']['status']) ? $this->options['swiper_options2']['navigation']['status'] : false
     ];
-
   }
+  
   /**
    * config library and some params
    *

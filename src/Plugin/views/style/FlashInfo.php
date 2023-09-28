@@ -10,7 +10,7 @@ use Drupal\core\form\FormStateInterface;
  *
  * @ViewsStyle(
  *  id = "flashinfo_slider",
- *  title = @Translation(" Flash Info Swiper "),
+ *  title = @Translation("Swiper api : Flash Info Swiper "),
  *  help = @Translation(" Add some slider controls and dinamize slider titles "),
  *  theme = "fullswiperoptions_flashinfo_slider",
  *  dispplay_types = { "normal" }

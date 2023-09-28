@@ -18,7 +18,7 @@ use Drupal\fullswiperoptions\Fullswiperoptions as config;
  *
  * @ViewsStyle(
  *   id = "fullswiperoptions_swipper",
- *   title = @Translation(" Swipper full options "),
+ *   title = @Translation("Swiper api : Swipper full options "),
  *   help = @Translation(" Help to bull a beautifull slider options "),
  *   theme = "fullswiperoptions_swipper",
  *   display_types = { "normal" }
@@ -296,6 +296,12 @@ class Fullswiperoptions extends StylePluginBase {
     $options = parent::defineOptions();
     $options['layoutgenentitystyles_view'] = [
       'default' => 'fullswiperoptions/fullswiperoptions'
+    ];
+    $options['swiper'] = [
+      'default' => 'swiper'
+    ];
+    $options['row_class'] = [
+      'default' => 'swiper-slide'
     ];
     $options['swiper_options'] = [
       'default' => config::options()

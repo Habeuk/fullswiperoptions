@@ -10,7 +10,7 @@ use Drupal\core\form\FormStateInterface;
  *
  * @ViewsStyle(
  *  id = "carrouselnav",
- *  title = @Translation(" Carrousel Nav (Swipper) "),
+ *  title = @Translation("Swiper api : Carrousel Nav (Swipper) "),
  *  help = @Translation(" Add some slider controls and dinamize slider titles "),
  *  theme = "fullswiperoptions_carrouselnav",
  *  display_types = { "normal" }

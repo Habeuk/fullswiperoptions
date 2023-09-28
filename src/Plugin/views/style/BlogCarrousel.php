@@ -10,7 +10,7 @@ use Drupal\core\form\FormStateInterface;
  *
  * @ViewsStyle(
  *  id = "blogcarrousel",
- *  title = @Translation(" Blog Carrousel "),
+ *  title = @Translation("Swiper api : Blog Carrousel "),
  *  help = @Translation(" Add some Slider type for displaying slides "),
  *  theme = "fullswiperoptions_blogcarrousel",
  *  display_types = { "normal" }
@@ -36,11 +36,12 @@ class BlogCarrousel extends Fullswiperoptions {
       '#title' => $this->t(' Container Model '),
       '#options' => [
         'blog-carousel' => 'blog-carousel(no-bullets)',
-        'carousel-testy' => 'testy(round-center-black)',
+        'carousel-testy' => 'testy(round-center-black)'
       ],
       '#default_value' => $this->options['theme']
     ];
   }
+  
   /**
    * config library and some params
    *
