@@ -6,13 +6,14 @@ use Drupal\Component\Utility\Html;
 use Drupal\views\ViewExecutable;
 use Drupal\Core\Template\Attribute;
 use Drupal\Component\Serialization\Json;
-use Symfony\Component\Validator\Constraints\IsNull;
+use Drupal\core\form\FormStateInterface;
 
 class Fullswiperoptions {
   
   public static function options($k = null) {
     $options = [
       'direction' => 'horizontal',
+      'effect' => 'slide',
       'speed' => 500,
       'spaceBetween' => 10,
       'loop' => true,
@@ -23,17 +24,98 @@ class Fullswiperoptions {
       ],
       'navigation' => [
         'nextEl' => '.swiper-button-next',
-        'prevEl' => '.swiper-button-prev'
+        'prevEl' => '.swiper-button-prev',
+        'enabled' => true
       ],
       'parallax' => true,
       "autoplay" => [
-        'delay' => 8000
-      ]
+        'delay' => 8000,
+        'pauseOnMouseEnter' => true
+      ],
+      'module' => [],
+      'centeredSlides' => false
     ];
     if ($k && isset($options[$k])) {
       return $options[$k];
     }
     return $options;
+  }
+  
+  /**
+   * Build general config.
+   *
+   * @param array $form
+   * @param FormStateInterface $form_state
+   */
+  public static function buildSwiperjsOptions(&$form, $options) {
+    $form['swiperjs_options'] = [
+      '#title' => t('Swiperjs options'),
+      '#type' => 'details',
+      '#open' => false
+    ];
+    $form['swiperjs_options']['speed'] = [
+      '#title' => t('Speed'),
+      '#type' => 'textfield',
+      '#default_value' => isset($options['speed']) ? $options['speed'] : 500
+    ];
+    $form['swiperjs_options']['module'] = [
+      '#type' => 'checkboxes',
+      '#title' => t(' Module '),
+      '#options' => [
+        'Controller' => 'controller',
+        'Navigation' => 'navigation',
+        'Pagination' => 'pagination',
+        'Thumbs' => 'thumbs'
+      ],
+      '#default_value' => $options['swiperjs_options']['module']
+    ];
+    $form['swiperjs_options']['effect'] = [
+      '#title' => t('effect'),
+      '#type' => 'select',
+      '#default_value' => isset($options['effect']) ? $options['effect'] : 'slide',
+      '#options' => [
+        'slide' => 'Slide',
+        'fade' => 'fade',
+        'cube' => 'coverflow',
+        'flip' => 'flip',
+        'creative' => 'creative'
+      ]
+    ];
+    $form['swiperjs_options']['spaceBetween'] = [
+      '#title' => t('spaceBetween'),
+      '#type' => 'textfield',
+      '#default_value' => isset($options['spaceBetween']) ? $options['spaceBetween'] : 10
+    ];
+    $form['swiperjs_options']['loop'] = [
+      '#title' => t('Loop'),
+      '#type' => 'checkbox',
+      '#default_value' => isset($options['loop']) ? $options['loop'] : false
+    ];
+    $form['swiperjs_options']['navigation'] = [
+      '#title' => t('navigation'),
+      '#type' => 'details',
+      '#open' => false
+    ];
+    $form['swiperjs_options']['navigation']['enabled'] = [
+      '#title' => t('Enabled navigation'),
+      '#type' => 'checkbox',
+      '#default_value' => isset($options['navigation']['enabled']) ? $options['navigation']['enabled'] : false
+    ];
+    $form['swiperjs_options']['autoplay'] = [
+      '#title' => t('autoplay'),
+      '#type' => 'details',
+      '#open' => false
+    ];
+    $form['swiperjs_options']['autoplay']['delay'] = [
+      '#title' => t('Autoplay delay'),
+      '#type' => 'textfield',
+      '#default_value' => isset($options['autoplay']['delay']) ? $options['autoplay']['delay'] : 8000
+    ];
+    $form['swiperjs_options']['centeredSlides'] = [
+      '#title' => t('centeredSlides'),
+      '#type' => 'checkbox',
+      '#default_value' => isset($options['centeredSlides']) ? $options['centeredSlides'] : false
+    ];
   }
   
   /**
@@ -97,6 +179,62 @@ class Fullswiperoptions {
     }
   }
   
+  /**
+   * Build general config.
+   *
+   * @param array $form
+   * @param FormStateInterface $form_state
+   */
+  public static function buildGeneralOptionsForm(&$form, $options) {
+    $form['pagination_color'] = [
+      '#type' => 'select',
+      '#title' => t(' Pagination color '),
+      '#options' => [
+        '' => 'Default',
+        'swiper-pagination--primary' => 'Coleur primaire',
+        'swiper-pagination--background' => 'Coleur du background',
+        'swiper-pagination--secondary' => 'Coleur secondaire'
+      ],
+      '#default_value' => $options['pagination_color']
+    ];
+    $form['pagination_postion'] = [
+      '#type' => 'select',
+      '#title' => t(' Pagination position '),
+      '#options' => [
+        '' => 'Default',
+        'swiper-pagination--center-bottom' => 'Center bottom'
+      ],
+      '#default_value' => $options['pagination_postion']
+    ];
+    $form['buttons_color'] = [
+      '#type' => 'select',
+      '#title' => t(' Buttons color (next&prev) '),
+      '#options' => [
+        '' => 'Default',
+        'swiper-button--primary' => 'Coleur primaire',
+        'swiper-button--background' => 'Coleur du background',
+        'swiper-button--secondary' => 'Coleur secondaire'
+      ],
+      '#default_value' => $options['buttons_color']
+    ];
+    $form['buttons_position'] = [
+      '#type' => 'select',
+      '#title' => t(' Buttons position (next&prev) '),
+      '#options' => [
+        '' => 'Default',
+        'swiper-button--align-bottom-y-mobile' => 'Bottom mobile',
+        'swiper-button--align-bottom-y-tablet' => 'Bottom tablet',
+        'swiper-button--align-bottom-y' => 'Bottom'
+      ],
+      '#default_value' => $options['buttons_position']
+    ];
+  }
+  
+  /**
+   * Permet de formater les views.
+   *
+   * @param array $vars
+   */
   public static function FullswiperoptionsTheme(&$vars) {
     $wrappers_attributes = new Attribute();
     $view = $vars['view'];

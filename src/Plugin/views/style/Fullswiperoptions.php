@@ -72,48 +72,7 @@ class Fullswiperoptions extends StylePluginBase {
       ],
       '#default_value' => $this->options['theme']
     ];
-    $form['pagination_color'] = [
-      '#type' => 'select',
-      '#title' => $this->t(' Pagination color '),
-      '#options' => [
-        '' => 'Default',
-        'swiper-pagination--primary' => 'Coleur primaire',
-        'swiper-pagination--background' => 'Coleur du background',
-        'swiper-pagination--secondary' => 'Coleur secondaire'
-      ],
-      '#default_value' => $this->options['pagination_color']
-    ];
-    $form['pagination_postion'] = [
-      '#type' => 'select',
-      '#title' => $this->t(' Pagination position '),
-      '#options' => [
-        '' => 'Default',
-        'swiper-pagination--center-bottom' => 'Center bottom'
-      ],
-      '#default_value' => $this->options['pagination_postion']
-    ];
-    $form['buttons_color'] = [
-      '#type' => 'select',
-      '#title' => $this->t(' Buttons color (next&prev) '),
-      '#options' => [
-        '' => 'Default',
-        'swiper-button--primary' => 'Coleur primaire',
-        'swiper-button--background' => 'Coleur du background',
-        'swiper-button--secondary' => 'Coleur secondaire'
-      ],
-      '#default_value' => $this->options['buttons_color']
-    ];
-    $form['buttons_position'] = [
-      '#type' => 'select',
-      '#title' => $this->t(' Buttons position (next&prev) '),
-      '#options' => [
-        '' => 'Default',
-        'swiper-button--align-bottom-y-mobile' => 'Bottom mobile',
-        'swiper-button--align-bottom-y-tablet' => 'Bottom tablet',
-        'swiper-button--align-bottom-y' => 'Bottom'
-      ],
-      '#default_value' => $this->options['buttons_position']
-    ];
+    config::buildGeneralOptionsForm($form, $this->options);
     // adding swiper or not :
     $form['swiper'] = [
       '#type' => 'textfield',
