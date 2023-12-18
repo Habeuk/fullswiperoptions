@@ -32,7 +32,7 @@ class Fullswiperoptions {
         'delay' => 8000,
         'pauseOnMouseEnter' => true
       ],
-      // Le smodules sont automatiquement charges : Navigation, Pagination,
+      // Le modules sont automatiquement charges : Navigation, Pagination,
       // Parallax, Autoplay, Controller, Thumbs, Scrollbar, EffectFade
       // 'module' => [],
       'centeredSlides' => false
@@ -50,6 +50,8 @@ class Fullswiperoptions {
    * @param FormStateInterface $form_state
    */
   public static function buildSwiperjsOptions(&$form, $options) {
+    if (!empty($options['swiperjs_options']))
+      $options = $options['swiperjs_options'];
     $form['swiperjs_options'] = [
       '#title' => t('Swiperjs options'),
       '#type' => 'details',
@@ -145,6 +147,8 @@ class Fullswiperoptions {
   }
   
   public static function formatOptions(array $values) {
+    if (!empty($values['swiperjs_options']))
+      $values = $values['swiperjs_options'];
     $defauls = self::options();
     foreach ($values as $k => $value) {
       if (isset($values[$k])) {
