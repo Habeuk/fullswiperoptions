@@ -16,7 +16,7 @@ class Fullswiperoptions {
       'effect' => 'slide',
       'speed' => 500,
       'spaceBetween' => 10,
-      'loop' => true,
+      'loop' => false,
       'pagination' => [
         'el' => '.swiper-pagination',
         'type' => 'bullets',
@@ -32,7 +32,9 @@ class Fullswiperoptions {
         'delay' => 8000,
         'pauseOnMouseEnter' => true
       ],
-      'module' => [],
+      // Le smodules sont automatiquement charges : Navigation, Pagination,
+      // Parallax, Autoplay, Controller, Thumbs, Scrollbar, EffectFade
+      // 'module' => [],
       'centeredSlides' => false
     ];
     if ($k && isset($options[$k])) {
@@ -53,21 +55,14 @@ class Fullswiperoptions {
       '#type' => 'details',
       '#open' => false
     ];
-    $form['swiperjs_options']['speed'] = [
+    $form['swiperjs_options']['direction'] = [
       '#title' => t('Speed'),
-      '#type' => 'textfield',
-      '#default_value' => isset($options['speed']) ? $options['speed'] : 500
-    ];
-    $form['swiperjs_options']['module'] = [
-      '#type' => 'checkboxes',
-      '#title' => t(' Module '),
+      '#type' => 'select',
+      '#default_value' => isset($options['direction']) ? $options['direction'] : 'horizontal',
       '#options' => [
-        'Controller' => 'controller',
-        'Navigation' => 'navigation',
-        'Pagination' => 'pagination',
-        'Thumbs' => 'thumbs'
-      ],
-      '#default_value' => $options['swiperjs_options']['module']
+        'horizontal' => 'Horizontal',
+        'vertical' => 'Vertical'
+      ]
     ];
     $form['swiperjs_options']['effect'] = [
       '#title' => t('effect'),
@@ -81,6 +76,12 @@ class Fullswiperoptions {
         'creative' => 'creative'
       ]
     ];
+    $form['swiperjs_options']['speed'] = [
+      '#title' => t('Speed'),
+      '#type' => 'number',
+      '#default_value' => isset($options['speed']) ? $options['speed'] : 500
+    ];
+    
     $form['swiperjs_options']['spaceBetween'] = [
       '#title' => t('spaceBetween'),
       '#type' => 'textfield',
@@ -90,6 +91,21 @@ class Fullswiperoptions {
       '#title' => t('Loop'),
       '#type' => 'checkbox',
       '#default_value' => isset($options['loop']) ? $options['loop'] : false
+    ];
+    $form['swiperjs_options']['pagination'] = [
+      '#title' => t('pagination'),
+      '#type' => 'details',
+      '#open' => false
+    ];
+    $form['swiperjs_options']['pagination']['enabled'] = [
+      '#title' => t('Enabled navigation'),
+      '#type' => 'checkbox',
+      '#default_value' => isset($options['pagination']['enabled']) ? $options['pagination']['enabled'] : true
+    ];
+    $form['swiperjs_options']['navigation'] = [
+      '#title' => t('navigation'),
+      '#type' => 'details',
+      '#open' => false
     ];
     $form['swiperjs_options']['navigation'] = [
       '#title' => t('navigation'),
