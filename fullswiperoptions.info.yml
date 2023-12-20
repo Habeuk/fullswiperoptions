@@ -4,4 +4,5 @@ description: full swipper options
 package: Custom
 core_version_requirement: ^9 || ^10
 dependencies:
-  - views_ui
+  - drupal:views_ui
+  - layoutgenentitystyles:layoutgenentitystyles
