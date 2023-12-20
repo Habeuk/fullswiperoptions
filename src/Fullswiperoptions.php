@@ -9,7 +9,7 @@ use Drupal\Component\Serialization\Json;
 use Drupal\core\form\FormStateInterface;
 
 class Fullswiperoptions {
-  
+
   public static function options($k = null) {
     $options = [
       'direction' => 'horizontal',
@@ -42,7 +42,7 @@ class Fullswiperoptions {
     }
     return $options;
   }
-  
+
   /**
    * Build general config.
    *
@@ -83,11 +83,16 @@ class Fullswiperoptions {
       '#type' => 'number',
       '#default_value' => isset($options['speed']) ? $options['speed'] : 500
     ];
-    
+
     $form['swiperjs_options']['spaceBetween'] = [
       '#title' => t('spaceBetween'),
       '#type' => 'textfield',
       '#default_value' => isset($options['spaceBetween']) ? $options['spaceBetween'] : 10
+    ];
+    $form['swiperjs_options']['slidesPerView'] = [
+      '#title' => t('slidesPerView'),
+      '#type' => 'number',
+      '#default_value' => isset($options['slidesPerView']) ? $options['slidesPerView'] : 4
     ];
     $form['swiperjs_options']['loop'] = [
       '#title' => t('Loop'),
@@ -135,7 +140,7 @@ class Fullswiperoptions {
       '#default_value' => isset($options['centeredSlides']) ? $options['centeredSlides'] : false
     ];
   }
-  
+
   /**
    *
    * @param ViewExecutable $view
@@ -145,7 +150,7 @@ class Fullswiperoptions {
     $id = $view->storage->id() . '-' . $view->current_display;
     return Html::getUniqueId('swiper-' . $id);
   }
-  
+
   public static function formatOptions(array $values) {
     if (!empty($values['swiperjs_options']))
       $values = $values['swiperjs_options'];
@@ -158,7 +163,7 @@ class Fullswiperoptions {
     }
     return $defauls;
   }
-  
+
   public static function formatValue($key, &$value) {
     switch ($key) {
       case 'speed':
@@ -168,8 +173,7 @@ class Fullswiperoptions {
       case 'loopedSlides':
         if (empty($value)) {
           $value = 0;
-        }
-        else {
+        } else {
           $value = (int) $value;
         }
         break;
@@ -193,12 +197,20 @@ class Fullswiperoptions {
           else
             $value = self::options($key);
         }
+        if (isset($value["enabled"])) {
+          $value = !$value["enabled"] ? ["enabled" => 0] : [
+            'enabled' => 1,
+            'nextEl' => '.swiper-button-next',
+            'prevEl' => '.swiper-button-prev'
+          ];
+        }
+
         break;
       default:
         break;
     }
   }
-  
+
   /**
    * Build general config.
    *
@@ -249,7 +261,7 @@ class Fullswiperoptions {
       '#default_value' => $options['buttons_position']
     ];
   }
-  
+
   /**
    * Permet de formater les views.
    *
@@ -390,5 +402,4 @@ class Fullswiperoptions {
       ]
     ]);
   }
-  
 }
