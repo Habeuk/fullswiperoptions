@@ -17,6 +17,7 @@ class Fullswiperoptions {
       'speed' => 500,
       'spaceBetween' => 10,
       'loop' => false,
+      'zoom' => false,
       'pagination' => [
         'el' => '.swiper-pagination',
         'type' => 'bullets',
@@ -99,6 +100,11 @@ class Fullswiperoptions {
       '#type' => 'checkbox',
       '#default_value' => isset($options['loop']) ? $options['loop'] : false
     ];
+    $form['swiperjs_options']['zoom'] = [
+      '#title' => t('Zoom'),
+      '#type' => 'checkbox',
+      '#default_value' => isset($options['zoom']) ? $options['zoom'] : false
+    ];
     $form['swiperjs_options']['pagination'] = [
       '#title' => t('pagination'),
       '#type' => 'details',
@@ -166,6 +172,9 @@ class Fullswiperoptions {
 
   public static function formatValue($key, &$value) {
     switch ($key) {
+      case 'zoom':
+        $value = (int) $value ? true : false;
+        break;
       case 'speed':
       case 'spaceBetween':
         $value = (int) $value;
