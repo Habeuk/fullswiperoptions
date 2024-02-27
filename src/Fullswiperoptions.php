@@ -25,17 +25,31 @@ class Fullswiperoptions {
       'navigation' => [
         'nextEl' => '.swiper-button-next',
         'prevEl' => '.swiper-button-prev',
-        'enabled' => true
+        'enabled' => 1
       ],
       'parallax' => true,
       "autoplay" => [
         'delay' => 8000,
-        'pauseOnMouseEnter' => true
+        // pause in mouse enter and replay when mouse out.
+        'pauseOnMouseEnter' => true,
+        'disableOnInteraction' => false,
+        'waitForTransition' => true,
+        'stopOnLastSlide' => false
       ],
       // Le modules sont automatiquement charges : Navigation, Pagination,
       // Parallax, Autoplay, Controller, Thumbs, Scrollbar, EffectFade
       // 'module' => [],
-      'centeredSlides' => false
+      'centeredSlides' => false,
+      'freeMode' => [
+        'enabled' => false,
+        'minimumVelocity' => 0.2,
+        'momentum' => true,
+        'momentumBounce' => true,
+        'momentumBounceRatio' => 1,
+        'momentumRatio' => 1,
+        'momentumVelocityRatio' => 1,
+        'sticky' => 1
+      ]
     ];
     if ($k && isset($options[$k])) {
       return $options[$k];
@@ -53,12 +67,12 @@ class Fullswiperoptions {
     if (!empty($options['swiperjs_options']))
       $options = $options['swiperjs_options'];
     $form['swiperjs_options'] = [
-      '#title' => t('Swiperjs options'),
+      '#title' => t('Swiper settings'),
       '#type' => 'details',
       '#open' => false
     ];
     $form['swiperjs_options']['direction'] = [
-      '#title' => t('Speed'),
+      '#title' => t('Direction'),
       '#type' => 'select',
       '#default_value' => isset($options['direction']) ? $options['direction'] : 'horizontal',
       '#options' => [
@@ -66,16 +80,104 @@ class Fullswiperoptions {
         'vertical' => 'Vertical'
       ]
     ];
+    // using supplements class :
+    $form['swiperjs_options']['supplement_class_status'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Use Supplement Class'),
+      '#default_value' => isset($options['swiperjs_options']['supplement_class_status']) ? $options['swiperjs_options']['supplement_class_status'] : false
+    ];
+    $form['swiperjs_options']['slideClass'] = [
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#default_value' => isset($options['swiperjs_options']['slideClass']) ? $options['swiperjs_options']['slideClass'] : '',
+      '#states' => [
+        'visible' => [
+          ':input[name="style_options[swiperjs_options][supplement_class_status]"]' => [
+            'checked' => TRUE
+          ]
+        ]
+      ],
+      '#title' => t('slideClass')
+    ];
+    $form['swiperjs_options']['slideActiveClass'] = [
+      '#type' => 'textfield',
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#default_value' => isset($options['swiperjs_options']['slideActiveClass']) ? $options['swiperjs_options']['slideActiveClass'] : '',
+      '#states' => [
+        'visible' => [
+          ':input[name="style_options[swiperjs_options][supplement_class_status]"]' => [
+            'checked' => TRUE
+          ]
+        ]
+      ],
+      '#title' => t('slideActiveClass')
+    ];
+    // form for loopedSlides :
+    $form['swiperjs_options']['loopedSlides'] = [
+      '#type' => 'number',
+      '#title' => t('loopedSlides'),
+      '#default_value' => isset($options['swiperjs_options']['loopedSlides']) ? $options['swiperjs_options']['loopedSlides'] : null
+    ];
+    // form for slidesPerView :
+    $form['swiperjs_options']['slidesPerView'] = [
+      '#type' => 'number',
+      '#title' => t('slidesPerView'),
+      '#default_value' => isset($options['swiperjs_options']['slidesPerView']) ? $options['swiperjs_options']['slidesPerView'] : null
+    ];
+    // form for breakpoints :
+    $form['swiperjs_options']['breakpoints_status'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Use breakpoints'),
+      '#default_value' => isset($options['swiperjs_options']['breakpoints_status']) ? $options['swiperjs_options']['breakpoints_status'] : null
+    ];
+    $bpts = [
+      576,
+      769,
+      992,
+      1201,
+      1601
+    ];
+    foreach ($bpts as $bp) {
+      $form['swiperjs_options']['breakpoints'][$bp] = [
+        '#type' => 'details',
+        '#states' => [
+          'visible' => [
+            ':input[name="style_options[swiperjs_options][breakpoints_status]"]' => [
+              'checked' => TRUE
+            ]
+          ]
+        ],
+        '#title' => t('breakpoint ' . $bp)
+      ];
+      $form['swiperjs_options']['breakpoints'][$bp]['centeredSlides'] = [
+        '#type' => 'checkbox',
+        '#title' => t('centeredSlides'),
+        '#default_value' => $options['swiperjs_options']['breakpoints'][$bp]['centeredSlides']
+      ];
+      $form['swiperjs_options']['breakpoints'][$bp]['slidesPerView'] = [
+        '#type' => 'number',
+        '#title' => t('slidesPerView '),
+        '#default_value' => $options['swiperjs_options']['breakpoints'][$bp]['slidesPerView']
+      ];
+      $form['swiperjs_options']['breakpoints'][$bp]['spaceBetween'] = [
+        '#type' => 'number',
+        '#title' => t('spaceBetween '),
+        '#default_value' => $options['swiperjs_options']['breakpoints'][$bp]['spaceBetween']
+      ];
+    }
     $form['swiperjs_options']['effect'] = [
       '#title' => t('effect'),
       '#type' => 'select',
       '#default_value' => isset($options['effect']) ? $options['effect'] : 'slide',
       '#options' => [
         'slide' => 'Slide',
-        'fade' => 'fade',
-        'cube' => 'coverflow',
-        'flip' => 'flip',
-        'creative' => 'creative'
+        'fade' => 'fade'
+        // Les modules en relation ne sont pas activées au niveau js.
+        // 'cube' => 'coverflow',
+        // 'flip' => 'flip',
+        // 'creative' => 'creative'
       ]
     ];
     $form['swiperjs_options']['speed'] = [
@@ -99,13 +201,19 @@ class Fullswiperoptions {
       '#type' => 'checkbox',
       '#default_value' => isset($options['loop']) ? $options['loop'] : false
     ];
+    // field for grabCursor
+    $form['swiperjs_options']['grabCursor'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Grab Cursor'),
+      '#default_value' => isset($options['swiperjs_options']['grabCursor']) ? $options['swiperjs_options']['grabCursor'] : null
+    ];
     $form['swiperjs_options']['pagination'] = [
       '#title' => t('pagination'),
       '#type' => 'details',
       '#open' => false
     ];
     $form['swiperjs_options']['pagination']['enabled'] = [
-      '#title' => t('Enabled navigation'),
+      '#title' => t('Enabled pagination'),
       '#type' => 'checkbox',
       '#default_value' => isset($options['pagination']['enabled']) ? $options['pagination']['enabled'] : true
     ];
@@ -139,6 +247,16 @@ class Fullswiperoptions {
       '#type' => 'checkbox',
       '#default_value' => isset($options['centeredSlides']) ? $options['centeredSlides'] : false
     ];
+    $form['swiperjs_options']['freeMode'] = [
+      '#title' => t('freeMode'),
+      '#type' => 'details',
+      '#open' => false
+    ];
+    $form['swiperjs_options']['freeMode']['enabled'] = [
+      '#title' => t('Enabled'),
+      '#type' => 'checkbox',
+      '#default_value' => isset($options['freeMode']['enabled']) ? $options['freeMode']['enabled'] : false
+    ];
   }
 
   /**
@@ -170,10 +288,17 @@ class Fullswiperoptions {
       case 'spaceBetween':
         $value = (int) $value;
         break;
+      case 'loop':
+        $value = $value ? true : false;
+        break;
+      case 'freeMode':
+        $value['enabled'] = $value['enabled'] ? true : false;
+        break;
       case 'loopedSlides':
         if (empty($value)) {
           $value = 0;
-        } else {
+        }
+        else {
           $value = (int) $value;
         }
         break;
@@ -191,20 +316,12 @@ class Fullswiperoptions {
           unset($value[$key]);
         }
       case 'navigation':
-        if (isset($value['status'])) {
-          if (!$value['status'])
+        if (isset($value['enabled'])) {
+          if (!$value['enabled'])
             $value = false;
           else
             $value = self::options($key);
         }
-        if (isset($value["enabled"])) {
-          $value = !$value["enabled"] ? ["enabled" => 0] : [
-            'enabled' => 1,
-            'nextEl' => '.swiper-button-next',
-            'prevEl' => '.swiper-button-prev'
-          ];
-        }
-
         break;
       default:
         break;
@@ -276,8 +393,8 @@ class Fullswiperoptions {
       \Drupal::messenger()->addWarning("le module swipper n'est pas correctement configurer");
       return;
     }
-    $swiper_options = Fullswiperoptions::formatOptions($settings['swiper_options']);
-    // dump($swiper_options);
+    $swiper_options = Fullswiperoptions::formatOptions($settings['swiperjs_options']);
+
     $vars['swiper_options'] = $swiper_options;
     $id = Fullswiperoptions::getUniqueId($view);
     $wrappers_attributes->setAttribute('id', $id);
@@ -402,4 +519,5 @@ class Fullswiperoptions {
       ]
     ]);
   }
+
 }

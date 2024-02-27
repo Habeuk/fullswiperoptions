@@ -30,20 +30,20 @@ class Fullswiperoptions extends StylePluginBase {
    * {@inheritdoc}
    */
   protected $usesRowPlugin = TRUE;
-  
+
   /**
    * Does the style plugin support custom css class for the rows.
    *
    * @var bool
    */
   protected $usesRowClass = TRUE;
-  
+
   /**
    *
    * @var LayoutgenentitystylesServices
    */
   protected $LayoutgenentitystylesServices;
-  
+
   /**
    *
    * {@inheritdoc}
@@ -53,7 +53,7 @@ class Fullswiperoptions extends StylePluginBase {
     $instance->LayoutgenentitystylesServices = $container->get('layoutgenentitystyles.add.style.theme');
     return $instance;
   }
-  
+
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
     $form['layoutgenentitystyles_view'] = [
@@ -82,27 +82,33 @@ class Fullswiperoptions extends StylePluginBase {
       '#title' => $this->t('Définition de Swiper'),
       '#description' => $this->t('La plupart des modèles de sliders utilisatnt Swiper utilise la classe swiper pour l\'initialisation')
     ];
-    $this->swiper_options($form);
+    // $this->swiperjs_options($form);
+    config::buildSwiperjsOptions($form, $this->options['swiperjs_options']);
   }
-  
-  protected function swiper_options(&$form) {
+
+  /**
+   *
+   * @deprecated doit etre supprimer
+   * @param array $form
+   */
+  protected function swiperjs_options(&$form) {
     // fields for the swiper settings
-    $form['swiper_options'] = [
+    $form['swiperjs_options'] = [
       '#type' => 'details',
       '#title' => $this->t('Swiper settings')
     ];
     // field for settings direction
-    $form['swiper_options']['direction'] = [
+    $form['swiperjs_options']['direction'] = [
       '#type' => 'select',
       '#title' => $this->t(' Direction '),
       '#options' => [
         'horizontal' => 'horizontal',
         'vertical' => 'vertical'
       ],
-      '#default_value' => $this->options['swiper_options']['direction']
+      '#default_value' => $this->options['swiperjs_options']['direction']
     ];
     // for module :
-    $form['swiper_options']['module'] = [
+    $form['swiperjs_options']['module'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t(' Module '),
       '#options' => [
@@ -111,36 +117,36 @@ class Fullswiperoptions extends StylePluginBase {
         'Pagination' => 'pagination',
         'Thumbs' => 'thumbs'
       ],
-      '#default_value' => $this->options['swiper_options']['module']
+      '#default_value' => $this->options['swiperjs_options']['module']
     ];
     // using supplements class :
-    $form['swiper_options']['supplement_class_status'] = [
+    $form['swiperjs_options']['supplement_class_status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Use Supplement Class'),
-      '#default_value' => $this->options['swiper_options']['supplement_class_status']
+      '#default_value' => $this->options['swiperjs_options']['supplement_class_status']
     ];
-    $form['swiper_options']['slideClass'] = [
+    $form['swiperjs_options']['slideClass'] = [
       '#type' => 'textfield',
       '#size' => 60,
       '#maxlength' => 128,
-      '#default_value' => $this->options['swiper_options']['slideClass'],
+      '#default_value' => $this->options['swiperjs_options']['slideClass'],
       '#states' => [
         'visible' => [
-          ':input[name="style_options[swiper_options][supplement_class_status]"]' => [
+          ':input[name="style_options[swiperjs_options][supplement_class_status]"]' => [
             'checked' => TRUE
           ]
         ]
       ],
       '#title' => $this->t('slideClass')
     ];
-    $form['swiper_options']['slideActiveClass'] = [
+    $form['swiperjs_options']['slideActiveClass'] = [
       '#type' => 'textfield',
       '#size' => 60,
       '#maxlength' => 128,
-      '#default_value' => $this->options['swiper_options']['slideActiveClass'],
+      '#default_value' => $this->options['swiperjs_options']['slideActiveClass'],
       '#states' => [
         'visible' => [
-          ':input[name="style_options[swiper_options][supplement_class_status]"]' => [
+          ':input[name="style_options[swiperjs_options][supplement_class_status]"]' => [
             'checked' => TRUE
           ]
         ]
@@ -148,22 +154,22 @@ class Fullswiperoptions extends StylePluginBase {
       '#title' => $this->t('slideActiveClass')
     ];
     // form for loopedSlides :
-    $form['swiper_options']['loopedSlides'] = [
+    $form['swiperjs_options']['loopedSlides'] = [
       '#type' => 'number',
       '#title' => $this->t('loopedSlides'),
-      '#default_value' => $this->options['swiper_options']['loopedSlides']
+      '#default_value' => $this->options['swiperjs_options']['loopedSlides']
     ];
     // form for slidesPerView :
-    $form['swiper_options']['slidesPerView'] = [
+    $form['swiperjs_options']['slidesPerView'] = [
       '#type' => 'number',
       '#title' => $this->t('slidesPerView'),
-      '#default_value' => $this->options['swiper_options']['slidesPerView']
+      '#default_value' => $this->options['swiperjs_options']['slidesPerView']
     ];
     // form for breakpoints :
-    $form['swiper_options']['breakpoints_status'] = [
+    $form['swiperjs_options']['breakpoints_status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Use breakpoints'),
-      '#default_value' => $this->options['swiper_options']['breakpoints_status']
+      '#default_value' => $this->options['swiperjs_options']['breakpoints_status']
     ];
     $bpts = [
       576,
@@ -173,70 +179,70 @@ class Fullswiperoptions extends StylePluginBase {
       1601
     ];
     foreach ($bpts as $bp) {
-      $form['swiper_options']['breakpoints'][$bp] = [
+      $form['swiperjs_options']['breakpoints'][$bp] = [
         '#type' => 'details',
         '#states' => [
           'visible' => [
-            ':input[name="style_options[swiper_options][breakpoints_status]"]' => [
+            ':input[name="style_options[swiperjs_options][breakpoints_status]"]' => [
               'checked' => TRUE
             ]
           ]
         ],
         '#title' => $this->t('breakpoint ' . $bp)
       ];
-      $form['swiper_options']['breakpoints'][$bp]['centeredSlides'] = [
+      $form['swiperjs_options']['breakpoints'][$bp]['centeredSlides'] = [
         '#type' => 'checkbox',
         '#title' => $this->t('centeredSlides'),
-        '#default_value' => $this->options['swiper_options']['breakpoints'][$bp]['centeredSlides']
+        '#default_value' => $this->options['swiperjs_options']['breakpoints'][$bp]['centeredSlides']
       ];
-      $form['swiper_options']['breakpoints'][$bp]['slidesPerView'] = [
+      $form['swiperjs_options']['breakpoints'][$bp]['slidesPerView'] = [
         '#type' => 'number',
         '#title' => $this->t('slidesPerView '),
-        '#default_value' => $this->options['swiper_options']['breakpoints'][$bp]['slidesPerView']
+        '#default_value' => $this->options['swiperjs_options']['breakpoints'][$bp]['slidesPerView']
       ];
-      $form['swiper_options']['breakpoints'][$bp]['spaceBetween'] = [
+      $form['swiperjs_options']['breakpoints'][$bp]['spaceBetween'] = [
         '#type' => 'number',
         '#title' => $this->t('spaceBetween '),
-        '#default_value' => $this->options['swiper_options']['breakpoints'][$bp]['spaceBetween']
+        '#default_value' => $this->options['swiperjs_options']['breakpoints'][$bp]['spaceBetween']
       ];
     }
     // form for the speed
-    $form['swiper_options']['speed'] = [
+    $form['swiperjs_options']['speed'] = [
       '#type' => 'number',
       '#title' => $this->t('speed'),
-      '#default_value' => $this->options['swiper_options']['speed']
+      '#default_value' => $this->options['swiperjs_options']['speed']
     ];
     // field for spaceBetween
-    $form['swiper_options']['spaceBetween'] = [
+    $form['swiperjs_options']['spaceBetween'] = [
       '#type' => 'number',
       '#title' => $this->t('space Between'),
-      '#default_value' => $this->options['swiper_options']['spaceBetween']
+      '#default_value' => $this->options['swiperjs_options']['spaceBetween']
     ];
     // field for loop
-    $form['swiper_options']['loop'] = [
+    $form['swiperjs_options']['loop'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Loop'),
-      '#default_value' => $this->options['swiper_options']['loop']
+      '#default_value' => $this->options['swiperjs_options']['loop']
     ];
     // field for grabCursor
-    $form['swiper_options']['grabCursor'] = [
+    $form['swiperjs_options']['grabCursor'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Grab Cursor'),
-      '#default_value' => $this->options['swiper_options']['grabCursor']
+      '#default_value' => $this->options['swiperjs_options']['grabCursor']
     ];
     // field for the navigation buttons
-    $form['swiper_options']['navigation'] = [
+    $form['swiperjs_options']['navigation'] = [
       '#type' => 'details',
       '#title' => $this->t('Navigation')
     ];
     // field for the navigation status
-    $form['swiper_options']['navigation']['status'] = [
+    $form['swiperjs_options']['navigation']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('display navigation'),
-      '#default_value' => isset($this->options['swiper_options']['navigation']['status']) ? $this->options['swiper_options']['navigation']['status'] : false
+      '#default_value' => isset($this->options['swiperjs_options']['navigation']['status']) ? $this->options['swiperjs_options']['navigation']['status'] : false
     ];
   }
-  
+
   public function submitOptionsForm(&$form, FormStateInterface $form_state) {
     parent::submitOptionsForm($form, $form_state);
     // On recupere la valeur de la librairie et on ajoute:
@@ -247,7 +253,7 @@ class Fullswiperoptions extends StylePluginBase {
     }
     $this->LayoutgenentitystylesServices->addStyleFromView($library, $this->view->id(), $this->view->current_display);
   }
-  
+
   /**
    * Set default options.
    */
@@ -262,11 +268,11 @@ class Fullswiperoptions extends StylePluginBase {
     $options['row_class'] = [
       'default' => 'swiper-slide'
     ];
-    $options['swiper_options'] = [
+    $options['swiperjs_options'] = [
       'default' => config::options()
     ];
-    
+
     return $options;
   }
-  
+
 }
