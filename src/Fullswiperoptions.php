@@ -28,7 +28,7 @@ class Fullswiperoptions {
         'prevEl' => '.swiper-button-prev',
         'enabled' => 1
       ],
-      'parallax' => true,
+      'parallax' => false,
       "autoplay" => [
         'delay' => 8000,
         // pause in mouse enter and replay when mouse out.
@@ -208,11 +208,16 @@ class Fullswiperoptions {
       '#title' => t('Grab Cursor'),
       '#default_value' => isset($options['swiperjs_options']['grabCursor']) ? $options['swiperjs_options']['grabCursor'] : null
     ];
-$form['swiperjs_options']['zoom'] = [
+    $form['swiperjs_options']['zoom'] = [
       '#title' => t('Zoom'),
       '#type' => 'checkbox',
       '#default_value' => isset($options['zoom']) ? $options['zoom'] : false
-];
+    ];
+    $form['swiperjs_options']['parallax'] = [
+      '#title' => t('Zoom'),
+      '#type' => 'checkbox',
+      '#default_value' => isset($options['parallax']) ? $options['parallax'] : false
+    ];
     $form['swiperjs_options']['pagination'] = [
       '#title' => t('pagination'),
       '#type' => 'details',
@@ -290,6 +295,9 @@ $form['swiperjs_options']['zoom'] = [
 
   public static function formatValue($key, &$value) {
     switch ($key) {
+      case 'parallax':
+        $value = $value ? true : false;
+        break;
       case 'zoom':
         $value = (int) $value ? true : false;
         break;
