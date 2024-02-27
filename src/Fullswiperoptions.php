@@ -311,6 +311,9 @@ class Fullswiperoptions {
       case 'freeMode':
         $value['enabled'] = $value['enabled'] ? true : false;
         break;
+      case 'autoplay':
+        $value['delay'] = (int) $value['delay'];
+        break;
       case 'loopedSlides':
         if (empty($value)) {
           $value = 0;
