@@ -214,7 +214,7 @@ class Fullswiperoptions {
       '#default_value' => isset($options['zoom']) ? $options['zoom'] : false
     ];
     $form['swiperjs_options']['parallax'] = [
-      '#title' => t('Zoom'),
+      '#title' => t('Parallax'),
       '#type' => 'checkbox',
       '#default_value' => isset($options['parallax']) ? $options['parallax'] : false
     ];
