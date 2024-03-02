@@ -9,7 +9,7 @@ use Drupal\Component\Serialization\Json;
 use Drupal\core\form\FormStateInterface;
 
 class Fullswiperoptions {
-
+  
   public static function options($k = null) {
     $options = [
       'direction' => 'horizontal',
@@ -57,7 +57,7 @@ class Fullswiperoptions {
     }
     return $options;
   }
-
+  
   /**
    * Build general config.
    *
@@ -186,7 +186,7 @@ class Fullswiperoptions {
       '#type' => 'number',
       '#default_value' => isset($options['speed']) ? $options['speed'] : 500
     ];
-
+    
     $form['swiperjs_options']['spaceBetween'] = [
       '#title' => t('spaceBetween'),
       '#type' => 'textfield',
@@ -269,7 +269,7 @@ class Fullswiperoptions {
       '#default_value' => isset($options['freeMode']['enabled']) ? $options['freeMode']['enabled'] : false
     ];
   }
-
+  
   /**
    *
    * @param ViewExecutable $view
@@ -279,11 +279,31 @@ class Fullswiperoptions {
     $id = $view->storage->id() . '-' . $view->current_display;
     return Html::getUniqueId('swiper-' . $id);
   }
-
+  
   public static function formatOptions(array $values) {
     if (!empty($values['swiperjs_options']))
       $values = $values['swiperjs_options'];
     $defauls = self::options();
+    // disable breakpoints options :
+    if (isset($values['breakpoints_status']) && !$values['breakpoints_status'])
+      unset($values['breakpoints']);
+    // remove breakpoints_status
+    if (isset($values['breakpoints_status']))
+      unset($values['breakpoints_status']);
+    // disable supplement_class_status
+    if (isset($values['supplement_class_status']) && !$values['supplement_class_status']) {
+      unset($values['slideClass']);
+      unset($values['slideActiveClass']);
+      unset($values['supplement_class_status']);
+    }
+    // Remove loopedSlides if is empty.
+    if (isset($values['loopedSlides']) && !$values['loopedSlides']) {
+      unset($values['loopedSlides']);
+    }
+    // remove slidesPerView
+    if (isset($values['slidesPerView']) && empty($values['slidesPerView'])) {
+      unset($values['slidesPerView']);
+    }
     foreach ($values as $k => $value) {
       if (isset($values[$k])) {
         self::formatValue($k, $values[$k]);
@@ -292,7 +312,7 @@ class Fullswiperoptions {
     }
     return $defauls;
   }
-
+  
   public static function formatValue($key, &$value) {
     switch ($key) {
       case 'parallax':
@@ -347,7 +367,7 @@ class Fullswiperoptions {
         break;
     }
   }
-
+  
   /**
    * Build general config.
    *
@@ -398,7 +418,7 @@ class Fullswiperoptions {
       '#default_value' => $options['buttons_position']
     ];
   }
-
+  
   /**
    * Permet de formater les views.
    *
@@ -414,7 +434,7 @@ class Fullswiperoptions {
       return;
     }
     $swiper_options = Fullswiperoptions::formatOptions($settings['swiperjs_options']);
-
+    
     $vars['swiper_options'] = $swiper_options;
     $id = Fullswiperoptions::getUniqueId($view);
     $wrappers_attributes->setAttribute('id', $id);
@@ -426,28 +446,6 @@ class Fullswiperoptions {
         $vars['rows'][$num]['attributes']['class'][] = $row_class;
       }
       $vars['rows'][$num]['attributes'] = new Attribute($vars['rows'][$num]['attributes']);
-    }
-    // }
-    // disable breakpoints options :
-    if (isset($swiper_options['breakpoints_status']) && !$swiper_options['breakpoints_status'])
-      unset($swiper_options['breakpoints']);
-    // disable supplement_class_status
-    if (isset($swiper_options['supplement_class_status']) && !$swiper_options['supplement_class_status']) {
-      unset($swiper_options['slideClass']);
-      unset($swiper_options['slideActiveClass']);
-      unset($swiper_options['supplement_class_status']);
-    }
-    // Remove loopedSlides if is empty.
-    if (isset($swiper_options['loopedSlides']) && !$swiper_options['loopedSlides']) {
-      unset($swiper_options['loopedSlides']);
-    }
-    // remove slidesPerView
-    if (isset($swiper_options['slidesPerView']) && empty($swiper_options['slidesPerView'])) {
-      unset($swiper_options['slidesPerView']);
-    }
-    // remove breakpoints_status
-    if (isset($swiper_options['breakpoints_status']) && !$swiper_options['breakpoints_status']) {
-      unset($swiper_options['breakpoints_status']);
     }
     // remove or add the swiper class
     if (isset($settings['swiper']))
@@ -539,5 +537,5 @@ class Fullswiperoptions {
       ]
     ]);
   }
-
+  
 }
