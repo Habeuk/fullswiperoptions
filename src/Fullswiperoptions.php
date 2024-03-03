@@ -21,7 +21,8 @@ class Fullswiperoptions {
       'pagination' => [
         'el' => '.swiper-pagination',
         'type' => 'bullets',
-        'clickable' => true
+        'clickable' => true,
+        'enabled' => true
       ],
       'navigation' => [
         'nextEl' => '.swiper-button-next',
@@ -363,6 +364,14 @@ class Fullswiperoptions {
             $value = self::options($key);
         }
         break;
+      case 'pagination':
+        if (isset($value['enabled'])) {
+          if (!$value['enabled'])
+            $value = false;
+          else
+            $value = self::options($key);
+        }
+        break;
       default:
         break;
     }
@@ -375,14 +384,27 @@ class Fullswiperoptions {
    * @param FormStateInterface $form_state
    */
   public static function buildGeneralOptionsForm(&$form, $options) {
+    $form['pagination_model'] = [
+      '#type' => 'select',
+      '#title' => t(' Pagination model '),
+      '#options' => [
+        '' => 'Default',
+        'swiper-pagination--carre' => 'Carré',
+        'swiper-pagination--bar' => 'Barre arrondi',
+        'swiper-pagination--big-cercle' => 'Big cercle'
+      ],
+      '#default_value' => $options['pagination_model']
+    ];
     $form['pagination_color'] = [
       '#type' => 'select',
       '#title' => t(' Pagination color '),
       '#options' => [
         '' => 'Default',
-        'swiper-pagination--primary' => 'Coleur primaire',
-        'swiper-pagination--background' => 'Coleur du background',
-        'swiper-pagination--secondary' => 'Coleur secondaire'
+        'swiper-pagination--primary' => 'Primaire',
+        'swiper-pagination--background' => 'Background',
+        'swiper-pagination--secondary' => 'Secondaire',
+        'swiper-pagination--dark' => 'Black',
+        'swiper-pagination--white' => 'White'
       ],
       '#default_value' => $options['pagination_color']
     ];
@@ -391,24 +413,26 @@ class Fullswiperoptions {
       '#title' => t(' Pagination position '),
       '#options' => [
         '' => 'Default',
-        'swiper-pagination--center-bottom' => 'Center bottom'
+        'swiper-pagination--left-center' => 'Left center'
       ],
       '#default_value' => $options['pagination_postion']
     ];
     $form['buttons_color'] = [
       '#type' => 'select',
-      '#title' => t(' Buttons color (next&prev) '),
+      '#title' => t(' next&prev color '),
       '#options' => [
         '' => 'Default',
-        'swiper-button--primary' => 'Coleur primaire',
-        'swiper-button--background' => 'Coleur du background',
-        'swiper-button--secondary' => 'Coleur secondaire'
+        'swiper-button--primary' => 'Primaire',
+        'swiper-button--background' => 'Background',
+        'swiper-button--secondary' => 'Secondaire',
+        'swiper-button--white' => 'White',
+        'swiper-button--dark' => 'Black'
       ],
       '#default_value' => $options['buttons_color']
     ];
     $form['buttons_position'] = [
       '#type' => 'select',
-      '#title' => t(' Buttons position (next&prev) '),
+      '#title' => t(' next&prev position '),
       '#options' => [
         '' => 'Default',
         'swiper-button--align-bottom-y-mobile' => 'Bottom mobile',
@@ -429,20 +453,21 @@ class Fullswiperoptions {
     $view = $vars['view'];
     $handler = $vars['view']->style_plugin;
     $settings = $handler->options;
+    // Ce champs doit etre retirer.
     if (empty($settings['theme'])) {
-      \Drupal::messenger()->addWarning("le module swipper n'est pas correctement configurer");
-      return;
+      $settings['theme'] = '';
     }
-    $swiper_options = Fullswiperoptions::formatOptions($settings['swiperjs_options']);
+    $swiperjs_options = Fullswiperoptions::formatOptions($settings['swiperjs_options']);
     
-    $vars['swiper_options'] = $swiper_options;
+    $vars['swiperjs_options'] = $swiperjs_options;
     $id = Fullswiperoptions::getUniqueId($view);
     $wrappers_attributes->setAttribute('id', $id);
     $vars['wrappers_attributes'] = $wrappers_attributes;
-    // if (!empty($settings['row_class'])) {
+    // Ajout des classes personnalisé sur chaque ligne.
     foreach ($vars['rows'] as $num => $row) {
       $vars['rows'][$num]['attributes'] = [];
       if ($row_class = $handler->getRowClass($num)) {
+        $vars['rows'][$num]['attributes']['class'][] = "swiper-slide";
         $vars['rows'][$num]['attributes']['class'][] = $row_class;
       }
       $vars['rows'][$num]['attributes'] = new Attribute($vars['rows'][$num]['attributes']);
@@ -459,7 +484,7 @@ class Fullswiperoptions {
         'swiper-full-options',
         $settings['theme']
       ],
-      'data-swiper' => Json::encode($swiper_options)
+      'data-swiper' => Json::encode($swiperjs_options)
     ]);
     // checking value for the bullets and set the corresponding types of
     /**
@@ -500,6 +525,9 @@ class Fullswiperoptions {
     }
     if (!empty($settings['pagination_postion'])) {
       $class_pagination .= ' ' . $settings['pagination_postion'];
+    }
+    if (!empty($settings['pagination_model'])) {
+      $class_pagination .= ' ' . $settings['pagination_model'];
     }
     // remove the class carousel-nav for certain view
     $class_theme = 'carousel-nav';

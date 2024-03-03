@@ -1,4 +1,4 @@
-	<!-- If we need pagination -->
-{% if swiperjs_options.pagination.enabled %}
-	<div {{ swipper_attributes_paginations.addClass() }}></div>
+{% if swiperjs_options.navigation.enabled %}
+	<div {{swipper_attributes_buttons_prev}}></div>
+	<div {{swipper_attributes_buttons_next}}></div>
 {% endif %}

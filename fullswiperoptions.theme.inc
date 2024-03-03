@@ -1,4 +1,4 @@
-<?php
+<?php 
 use Drupal\fullswiperoptions\Fullswiperoptions;
 use Drupal\Core\Template\Attribute;
 use Drupal\Component\Serialization\Json;

@@ -16,16 +16,8 @@
 			thumbs-carousel -- carousel-nav
 		#}
 		<!-- If we need pagination -->
-		<div {{ swipper_attributes_paginations.addClass() }}>
-		</div>
-		<!-- next and Prev -->
-        {% if swiper_options.navigation %}
-				<div {{swipper_attributes_buttons_prev}}></div>
-				<div {{swipper_attributes_buttons_next}}></div>
-		{% endif %}
-		<!-- If we need scrollbar -->
-			{% if swiper_options.scroll %}
-				<div class="swiper-scrollbar"></div>
-			{% endif %}
+		{% include '@fullswiperoptions/includes/fullswiperoptions--navigation.html.twig' %}
+			{% include '@fullswiperoptions/includes/fullswiperoptions--pagination.html.twig' %}
+			{% include '@fullswiperoptions/includes/fullswiperoptions--scrollbar.html.twig' %}	
 	</div>
 </div>

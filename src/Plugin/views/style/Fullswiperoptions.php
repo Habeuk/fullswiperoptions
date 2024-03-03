@@ -18,7 +18,7 @@ use Drupal\fullswiperoptions\Fullswiperoptions as config;
  *
  * @ViewsStyle(
  *   id = "fullswiperoptions_swipper",
- *   title = @Translation("Swiper api : Swipper full options "),
+ *   title = @Translation("Swiper api : Swipper full options (Default) "),
  *   help = @Translation(" Help to bull a beautifull slider options "),
  *   theme = "fullswiperoptions_swipper",
  *   display_types = { "normal" }
@@ -30,20 +30,20 @@ class Fullswiperoptions extends StylePluginBase {
    * {@inheritdoc}
    */
   protected $usesRowPlugin = TRUE;
-
+  
   /**
    * Does the style plugin support custom css class for the rows.
    *
    * @var bool
    */
   protected $usesRowClass = TRUE;
-
+  
   /**
    *
    * @var LayoutgenentitystylesServices
    */
   protected $LayoutgenentitystylesServices;
-
+  
   /**
    *
    * {@inheritdoc}
@@ -53,7 +53,7 @@ class Fullswiperoptions extends StylePluginBase {
     $instance->LayoutgenentitystylesServices = $container->get('layoutgenentitystyles.add.style.theme');
     return $instance;
   }
-
+  
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
     $form['layoutgenentitystyles_view'] = [
@@ -61,17 +61,21 @@ class Fullswiperoptions extends StylePluginBase {
       '#value' => 'fullswiperoptions/fullswiperoptions'
     ];
     // this config add some options to the container swiper
-    $form['theme'] = [
-      '#type' => 'select',
-      '#title' => $this->t(' Model '),
-      '#options' => [
-        'clothing--left clothing--left--primary' => 'clothing-left primary-color',
-        'clothing--left clothing--left--background' => 'clothing-left background-color',
-        'clothing--bottom clothing--bottom--primary' => 'clothing--bottom primary-color',
-        'clothing--bottom clothing--bottom--background' => 'clothing--bottom background-color'
-      ],
-      '#default_value' => $this->options['theme']
-    ];
+    // $form['theme'] = [
+    // '#type' => 'select',
+    // '#title' => $this->t(' Model '),
+    // '#options' => [
+    // 'none' => 'Default',
+    // 'swiper--left swiper--left--primary' => 'swiper-left primary-color',
+    // 'swiper--left swiper--left--background' => 'swiper-left
+    // background-color',
+    // 'swiper--bottom swiper--bottom--primary' => 'swiper--bottom
+    // primary-color',
+    // 'swiper--bottom swiper--bottom--background' => 'swiper--bottom
+    // background-color'
+    // ],
+    // '#default_value' => $this->options['theme']
+    // ];
     config::buildGeneralOptionsForm($form, $this->options);
     // adding swiper or not :
     $form['swiper'] = [
@@ -85,7 +89,7 @@ class Fullswiperoptions extends StylePluginBase {
     // $this->swiperjs_options($form);
     config::buildSwiperjsOptions($form, $this->options['swiperjs_options']);
   }
-
+  
   /**
    *
    * @deprecated doit etre supprimer
@@ -242,7 +246,7 @@ class Fullswiperoptions extends StylePluginBase {
       '#default_value' => isset($this->options['swiperjs_options']['navigation']['status']) ? $this->options['swiperjs_options']['navigation']['status'] : false
     ];
   }
-
+  
   public function submitOptionsForm(&$form, FormStateInterface $form_state) {
     parent::submitOptionsForm($form, $form_state);
     // On recupere la valeur de la librairie et on ajoute:
@@ -253,7 +257,7 @@ class Fullswiperoptions extends StylePluginBase {
     }
     $this->LayoutgenentitystylesServices->addStyleFromView($library, $this->view->id(), $this->view->current_display);
   }
-
+  
   /**
    * Set default options.
    */
@@ -271,8 +275,8 @@ class Fullswiperoptions extends StylePluginBase {
     $options['swiperjs_options'] = [
       'default' => config::options()
     ];
-
+    
     return $options;
   }
-
+  
 }
