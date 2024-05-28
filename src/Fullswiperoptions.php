@@ -66,7 +66,7 @@ class Fullswiperoptions {
    * @param FormStateInterface $form_state
    */
   public static function buildSwiperjsOptions(&$form, $options) {
-    if (!empty($options['swiperjs_options']))
+    if (!empty($options))
       $options = $options['swiperjs_options'];
     $form['swiperjs_options'] = [
       '#title' => t('Swiper settings'),
@@ -82,17 +82,18 @@ class Fullswiperoptions {
         'vertical' => 'Vertical'
       ]
     ];
+    
     // using supplements class :
     $form['swiperjs_options']['supplement_class_status'] = [
       '#type' => 'checkbox',
       '#title' => t('Use Supplement Class'),
-      '#default_value' => isset($options['swiperjs_options']['supplement_class_status']) ? $options['swiperjs_options']['supplement_class_status'] : false
+      '#default_value' => isset($options['supplement_class_status']) ? $options['supplement_class_status'] : false
     ];
     $form['swiperjs_options']['slideClass'] = [
       '#type' => 'textfield',
       '#size' => 60,
       '#maxlength' => 128,
-      '#default_value' => isset($options['swiperjs_options']['slideClass']) ? $options['swiperjs_options']['slideClass'] : '',
+      '#default_value' => isset($options['slideClass']) ? $options['slideClass'] : '',
       '#states' => [
         'visible' => [
           ':input[name="style_options[swiperjs_options][supplement_class_status]"]' => [
@@ -106,7 +107,7 @@ class Fullswiperoptions {
       '#type' => 'textfield',
       '#size' => 60,
       '#maxlength' => 128,
-      '#default_value' => isset($options['swiperjs_options']['slideActiveClass']) ? $options['swiperjs_options']['slideActiveClass'] : '',
+      '#default_value' => isset($options['slideActiveClass']) ? $options['slideActiveClass'] : '',
       '#states' => [
         'visible' => [
           ':input[name="style_options[swiperjs_options][supplement_class_status]"]' => [
@@ -120,19 +121,19 @@ class Fullswiperoptions {
     $form['swiperjs_options']['loopedSlides'] = [
       '#type' => 'number',
       '#title' => t('loopedSlides'),
-      '#default_value' => isset($options['swiperjs_options']['loopedSlides']) ? $options['swiperjs_options']['loopedSlides'] : null
+      '#default_value' => isset($options['loopedSlides']) ? $options['loopedSlides'] : null
     ];
     // form for slidesPerView :
     $form['swiperjs_options']['slidesPerView'] = [
       '#type' => 'number',
       '#title' => t('slidesPerView'),
-      '#default_value' => isset($options['swiperjs_options']['slidesPerView']) ? $options['swiperjs_options']['slidesPerView'] : null
+      '#default_value' => isset($options['slidesPerView']) ? $options['slidesPerView'] : null
     ];
     // form for breakpoints :
     $form['swiperjs_options']['breakpoints_status'] = [
       '#type' => 'checkbox',
       '#title' => t('Use breakpoints'),
-      '#default_value' => isset($options['swiperjs_options']['breakpoints_status']) ? $options['swiperjs_options']['breakpoints_status'] : null
+      '#default_value' => isset($options['breakpoints_status']) ? $options['breakpoints_status'] : null
     ];
     $bpts = [
       576,
@@ -141,6 +142,7 @@ class Fullswiperoptions {
       1201,
       1601
     ];
+    
     foreach ($bpts as $bp) {
       $form['swiperjs_options']['breakpoints'][$bp] = [
         '#type' => 'details',
@@ -153,20 +155,21 @@ class Fullswiperoptions {
         ],
         '#title' => t('breakpoint ' . $bp)
       ];
+      
       $form['swiperjs_options']['breakpoints'][$bp]['centeredSlides'] = [
         '#type' => 'checkbox',
         '#title' => t('centeredSlides'),
-        '#default_value' => $options['swiperjs_options']['breakpoints'][$bp]['centeredSlides']
+        '#default_value' => $options['breakpoints'][$bp]['centeredSlides']
       ];
       $form['swiperjs_options']['breakpoints'][$bp]['slidesPerView'] = [
         '#type' => 'number',
         '#title' => t('slidesPerView '),
-        '#default_value' => $options['swiperjs_options']['breakpoints'][$bp]['slidesPerView']
+        '#default_value' => $options['breakpoints'][$bp]['slidesPerView']
       ];
       $form['swiperjs_options']['breakpoints'][$bp]['spaceBetween'] = [
         '#type' => 'number',
         '#title' => t('spaceBetween '),
-        '#default_value' => $options['swiperjs_options']['breakpoints'][$bp]['spaceBetween']
+        '#default_value' => $options['breakpoints'][$bp]['spaceBetween']
       ];
     }
     $form['swiperjs_options']['effect'] = [
@@ -207,7 +210,7 @@ class Fullswiperoptions {
     $form['swiperjs_options']['grabCursor'] = [
       '#type' => 'checkbox',
       '#title' => t('Grab Cursor'),
-      '#default_value' => isset($options['swiperjs_options']['grabCursor']) ? $options['swiperjs_options']['grabCursor'] : null
+      '#default_value' => isset($options['grabCursor']) ? $options['grabCursor'] : null
     ];
     $form['swiperjs_options']['zoom'] = [
       '#title' => t('Zoom'),
