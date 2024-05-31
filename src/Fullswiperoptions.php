@@ -66,7 +66,7 @@ class Fullswiperoptions {
    * @param FormStateInterface $form_state
    */
   public static function buildSwiperjsOptions(&$form, $options) {
-    if (!empty($options))
+    if (!empty($options['swiperjs_options']))
       $options = $options['swiperjs_options'];
     $form['swiperjs_options'] = [
       '#title' => t('Swiper settings'),
