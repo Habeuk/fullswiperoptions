@@ -159,17 +159,17 @@ class Fullswiperoptions {
       $form['swiperjs_options']['breakpoints'][$bp]['centeredSlides'] = [
         '#type' => 'checkbox',
         '#title' => t('centeredSlides'),
-        '#default_value' => $options['breakpoints'][$bp]['centeredSlides']
+        '#default_value' => $options['breakpoints'][$bp]['centeredSlides'] ?? false
       ];
       $form['swiperjs_options']['breakpoints'][$bp]['slidesPerView'] = [
         '#type' => 'number',
         '#title' => t('slidesPerView '),
-        '#default_value' => $options['breakpoints'][$bp]['slidesPerView']
+        '#default_value' => $options['breakpoints'][$bp]['slidesPerView'] ?? null
       ];
       $form['swiperjs_options']['breakpoints'][$bp]['spaceBetween'] = [
         '#type' => 'number',
         '#title' => t('spaceBetween '),
-        '#default_value' => $options['breakpoints'][$bp]['spaceBetween']
+        '#default_value' => $options['breakpoints'][$bp]['spaceBetween'] ?? null
       ];
     }
     $form['swiperjs_options']['effect'] = [
@@ -568,5 +568,4 @@ class Fullswiperoptions {
       ]
     ]);
   }
-  
 }
