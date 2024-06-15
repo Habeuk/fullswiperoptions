@@ -60,22 +60,12 @@ class Fullswiperoptions extends StylePluginBase {
       '#type' => 'hidden',
       '#value' => 'fullswiperoptions/fullswiperoptions'
     ];
-    // this config add some options to the container swiper
-    // $form['theme'] = [
-    // '#type' => 'select',
-    // '#title' => $this->t(' Model '),
-    // '#options' => [
-    // 'none' => 'Default',
-    // 'swiper--left swiper--left--primary' => 'swiper-left primary-color',
-    // 'swiper--left swiper--left--background' => 'swiper-left
-    // background-color',
-    // 'swiper--bottom swiper--bottom--primary' => 'swiper--bottom
-    // primary-color',
-    // 'swiper--bottom swiper--bottom--background' => 'swiper--bottom
-    // background-color'
-    // ],
-    // '#default_value' => $this->options['theme']
-    // ];
+    /**
+     * On ajoute la class "swiper-slide'" à row_class
+     */
+    if (!str_contains($form['row_class']['#default_value'], 'swiper-slide'))
+      $form['row_class']['#default_value'] = $form['row_class']['#default_value'] . " swiper-slide h-auto";
+    
     config::buildGeneralOptionsForm($form, $this->options);
     // adding swiper or not :
     $form['swiper'] = [
@@ -239,7 +229,7 @@ class Fullswiperoptions extends StylePluginBase {
       '#type' => 'details',
       '#title' => $this->t('Navigation')
     ];
-    // field for the navigation status
+    // field for the navh-autoigation status
     $form['swiperjs_options']['navigation']['status'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('display navigation'),
@@ -270,7 +260,7 @@ class Fullswiperoptions extends StylePluginBase {
       'default' => 'swiper'
     ];
     $options['row_class'] = [
-      'default' => 'swiper-slide'
+      'default' => 'swiper-slide h-auto'
     ];
     $options['swiperjs_options'] = [
       'default' => config::options()
@@ -278,5 +268,4 @@ class Fullswiperoptions extends StylePluginBase {
     
     return $options;
   }
-  
 }
