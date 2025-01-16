@@ -257,6 +257,26 @@ class Fullswiperoptions {
       '#type' => 'textfield',
       '#default_value' => isset($options['autoplay']['delay']) ? $options['autoplay']['delay'] : 8000
     ];
+    $form['swiperjs_options']['autoplay']['pauseOnMouseEnter'] = [
+      '#title' => t('Pause on mouse enter'),
+      '#type' => 'checkbox',
+      '#default_value' => isset($options['autoplay']['pauseOnMouseEnter']) ? $options['autoplay']['pauseOnMouseEnter'] : true
+    ];
+    $form['swiperjs_options']['autoplay']['disableOnInteraction'] = [
+      '#title' => t('Disable on interaction'),
+      '#type' => 'checkbox',
+      '#default_value' => isset($options['autoplay']['disableOnInteraction']) ? $options['autoplay']['disableOnInteraction'] : false
+    ];
+    $form['swiperjs_options']['autoplay']['waitForTransition'] = [
+      '#title' => t('Wait for transitionn'),
+      '#type' => 'checkbox',
+      '#default_value' => isset($options['autoplay']['waitForTransition']) ? $options['autoplay']['waitForTransition'] : true
+    ];
+    $form['swiperjs_options']['autoplay']['stopOnLastSlide'] = [
+      '#title' => t('Stop on last slide'),
+      '#type' => 'checkbox',
+      '#default_value' => isset($options['autoplay']['stopOnLastSlide']) ? $options['autoplay']['stopOnLastSlide'] : true
+    ];
     $form['swiperjs_options']['centeredSlides'] = [
       '#title' => t('centeredSlides'),
       '#type' => 'checkbox',
@@ -337,6 +357,10 @@ class Fullswiperoptions {
         break;
       case 'autoplay':
         $value['delay'] = (int) $value['delay'];
+        $value['pauseOnMouseEnter'] = $value['pauseOnMouseEnter'] ? true : false;
+        $value['disableOnInteraction'] = $value['disableOnInteraction'] ? true : false;
+        $value['waitForTransition'] = $value['waitForTransition'] ? true : false;
+        $value['stopOnLastSlide'] = $value['stopOnLastSlide'] ? true : false;
         break;
       case 'loopedSlides':
         if (empty($value)) {
