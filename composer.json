@@ -1,7 +1,7 @@
 {
     "name": "habeuk/fullswiperoptions",
     "description": "swipper options",
-    "type": "drupal-custom-module",
+    "type": "drupal-module",
     "license": "MIT",
     "authors": [
         {
