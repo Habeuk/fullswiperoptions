@@ -357,10 +357,10 @@ class Fullswiperoptions {
         break;
       case 'autoplay':
         $value['delay'] = (int) $value['delay'];
-        $value['pauseOnMouseEnter'] = isset($value['pauseOnMouseEnter']) ? true : false;
-        $value['disableOnInteraction'] = isset($value['disableOnInteraction']) ? true : false;
-        $value['waitForTransition'] = isset($value['waitForTransition']) ? true : false;
-        $value['stopOnLastSlide'] = isset($value['stopOnLastSlide']) ? true : false;
+        $value['pauseOnMouseEnter'] = isset($value['pauseOnMouseEnter']) ? (bool) $value['pauseOnMouseEnter'] : true;
+        $value['disableOnInteraction'] = isset($value['disableOnInteraction']) ? (bool) $value['disableOnInteraction'] : false;
+        $value['waitForTransition'] = isset($value['waitForTransition']) ? (bool) $value['waitForTransition'] : true;
+        $value['stopOnLastSlide'] = isset($value['stopOnLastSlide']) ? (bool) $value['stopOnLastSlide'] : false;
         break;
       case 'loopedSlides':
         if (empty($value)) {
