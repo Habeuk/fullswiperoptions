@@ -5,7 +5,6 @@ namespace Drupal\fullswiperoptions\Plugin\views\style;
 use Drupal\core\form\FormStateInterface;
 use Drupal\views\Plugin\views\style\StylePluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\layoutgenentitystyles\Services\LayoutgenentitystylesServices;
 use Drupal\fullswiperoptions\Fullswiperoptions as config;
 
 /**
@@ -40,18 +39,10 @@ class Fullswiperoptions extends StylePluginBase {
   
   /**
    *
-   * @deprecated [ cette logique n'est plus utilisé ].
-   * @var LayoutgenentitystylesServices
-   */
-  protected $LayoutgenentitystylesServices;
-  
-  /**
-   *
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     $instance = parent::create($container, $configuration, $plugin_id, $plugin_definition);
-    $instance->LayoutgenentitystylesServices = $container->get('layoutgenentitystyles.add.style.theme');
     return $instance;
   }
   
@@ -237,18 +228,6 @@ class Fullswiperoptions extends StylePluginBase {
       '#default_value' => isset($this->options['swiperjs_options']['navigation']['status']) ? $this->options['swiperjs_options']['navigation']['status'] : false
     ];
   }
-  
-  // public function submitOptionsForm(&$form, FormStateInterface $form_state) {
-  // parent::submitOptionsForm($form, $form_state);
-  // // On recupere la valeur de la librairie et on ajoute:
-  // $library = $this->options['layoutgenentitystyles_view'];
-  // // dump($library);
-  // if (empty($library)) {
-  // $library = 'fullswiperoptions/fullswiperoptions';
-  // }
-  // $this->LayoutgenentitystylesServices->addStyleFromView($library,
-  // $this->view->id(), $this->view->current_display);
-  // }
   
   /**
    * Set default options.
