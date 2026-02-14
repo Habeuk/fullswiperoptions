@@ -40,6 +40,7 @@ class Fullswiperoptions extends StylePluginBase {
   
   /**
    *
+   * @deprecated [ cette logique n'est plus utilisé ].
    * @var LayoutgenentitystylesServices
    */
   protected $LayoutgenentitystylesServices;
@@ -237,16 +238,17 @@ class Fullswiperoptions extends StylePluginBase {
     ];
   }
   
-  public function submitOptionsForm(&$form, FormStateInterface $form_state) {
-    parent::submitOptionsForm($form, $form_state);
-    // On recupere la valeur de la librairie et on ajoute:
-    $library = $this->options['layoutgenentitystyles_view'];
-    // dump($library);
-    if (empty($library)) {
-      $library = 'fullswiperoptions/fullswiperoptions';
-    }
-    $this->LayoutgenentitystylesServices->addStyleFromView($library, $this->view->id(), $this->view->current_display);
-  }
+  // public function submitOptionsForm(&$form, FormStateInterface $form_state) {
+  // parent::submitOptionsForm($form, $form_state);
+  // // On recupere la valeur de la librairie et on ajoute:
+  // $library = $this->options['layoutgenentitystyles_view'];
+  // // dump($library);
+  // if (empty($library)) {
+  // $library = 'fullswiperoptions/fullswiperoptions';
+  // }
+  // $this->LayoutgenentitystylesServices->addStyleFromView($library,
+  // $this->view->id(), $this->view->current_display);
+  // }
   
   /**
    * Set default options.
